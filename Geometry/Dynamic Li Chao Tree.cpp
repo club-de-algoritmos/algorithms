@@ -7,6 +7,7 @@
 *   Insercion y Consultas : O(log N)
 * Alternativa, construción dinamica más eficiente.
 * **Cuidado con la memoria dinamica pude causar errores si no se tiene cuidado.
+* **Recomendación: No hacer declaraciones globales
 */
 
 struct Line {
