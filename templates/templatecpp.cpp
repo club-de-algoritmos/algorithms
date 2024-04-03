@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// BRO... CSM
+
 using ll = long long;
 using pi = pair<int, int>;
 using vi = vector<int>;
