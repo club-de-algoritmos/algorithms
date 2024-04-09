@@ -8,9 +8,9 @@
  * el emparejamiento maximo, se requiere que N <= M.
  * Tiempo: O(N^2 M)
  */
-template<typename T>
+template <typename T>
 pair<T, vi> hungarian(const vector<vector<T>> &a) {
-  #define INF numeric_limits<T>::max(); 
+#define INF numeric_limits<T>::max()
   if (a.empty()) return {0, {}};
   int n = SZ(a) + 1, m = SZ(a[0]) + 1;
   vi p(m), ans(n - 1);
@@ -23,15 +23,19 @@ pair<T, vi> hungarian(const vector<vector<T>> &a) {
     vector<bool> done(m + 1);
     do {  // dijkstra
       done[j0] = true;
-      int i0 = p[j0], j1, delta = INF;
-      FOR (j, 1, m) if (!done[j]) {
+      int i0 = p[j0], j1;
+      T delta = INF;
+      FOR(j, 1, m)
+      if (!done[j]) {
         auto cur = a[i0 - 1][j - 1] - u[i0] - v[j];
         if (cur < dist[j]) dist[j] = cur, pre[j] = j0;
         if (dist[j] < delta) delta = dist[j], j1 = j;
       }
-      FOR (j, 0, m) {
-        if (done[j]) u[p[j]] += delta, v[j] -= delta;
-        else dist[j] -= delta;
+      FOR(j, 0, m) {
+        if (done[j])
+          u[p[j]] += delta, v[j] -= delta;
+        else
+          dist[j] -= delta;
       }
       j0 = j1;
     } while (p[j0]);
@@ -40,6 +44,7 @@ pair<T, vi> hungarian(const vector<vector<T>> &a) {
       p[j0] = p[j1], j0 = j1;
     }
   }
-  FOR(j, 1, m) if (p[j]) ans[p[j] - 1] = j - 1;
+  FOR(j, 1, m)
+  if (p[j]) ans[p[j] - 1] = j - 1;
   return {-v[0], ans};
 }
