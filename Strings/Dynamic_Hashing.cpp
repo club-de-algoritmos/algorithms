@@ -10,6 +10,9 @@
  *   Cambia el caracter de una posicion en el string
  * Aplicaciones:
  * - Checar si substrings de un string son palindromos 
+ * Complejidad: 
+ * - Construccion O(n log(n))
+ * - Query y update O(log(n))
  */
 
 #include <bits/stdc++.h>
