@@ -87,6 +87,7 @@ Graphs/Misc/Hierholzer.cpp	Hierholzer
 Graphs/Misc/HLD.cpp	Heavy-Light Decomposition
 Graphs/Misc/TopologicalSort.cpp	Orden Topologico
 
+
 [Geometry]
 Geometry/Point.cpp	Punto
 Geometry/Line.cpp	Linea
