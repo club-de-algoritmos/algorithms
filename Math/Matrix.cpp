@@ -1,14 +1,16 @@
 /**
- * Descripcion: estructura de matriz con algunas operaciones basicas
- * se suele utilizar para la multiplicacion y/o exponenciacion de matrices
- * Aplicaciones:
- * Calcular el n-esimo fibonacci en tiempo logaritmico, esto es
- * posible ya que para la matriz M = {{1, 1},{1, 0}}, se cumple
- * que M^n = {{F[n + 1], F[n]}, {F[n], F[n - 2]}}
- * Dado un grafo, su matriz de adyacencia M, y otra matriz P tal que P = M^k,
- * se puede demostrar que P[i][j] contiene la cantidad de caminos de longitud k
- * que inician en el i-esimo nodo y terminan en el j-esimo.
- * Tiempo: O(n^3 * log p) para la exponenciacion y O(n^3) para la multiplicacion
+ * Descripcion: estructura de matriz con algunas operaciones
+ * basicas se suele utilizar para la multiplicacion y/o
+ * exponenciacion de matrices Aplicaciones: Calcular el
+ * n-esimo fibonacci en tiempo logaritmico, esto es posible
+ * ya que para la matriz M = {{1, 1},{1, 0}}, se cumple que
+ * M^n = {{F[n + 1], F[n]}, {F[n], F[n - 2]}} Dado un grafo,
+ * su matriz de adyacencia M, y otra matriz P tal que P =
+ * M^k, se puede demostrar que P[i][j] contiene la cantidad
+ * de caminos de longitud k que inician en el i-esimo nodo y
+ * terminan en el j-esimo.
+ * Tiempo: O(n^3 * log p) para la exponenciacion y O(n^3)
+ * para la multiplicacion
  */
 
 template <typename T>
@@ -26,7 +28,8 @@ struct Matrix {
     FOR(i, 0, n)
     FOR(j, 0, k)
     FOR(l, 0, m)
-    C[i][j] = (C[i][j] + M[i][l] * other.M[l][j] % MOD) % MOD;
+    C[i][j] =
+        (C[i][j] + M[i][l] * other.M[l][j] % MOD) % MOD;
     return Matrix(C);
   }
 
@@ -37,8 +40,7 @@ struct Matrix {
     ret.M[i][i] = 1;
 
     while (p) {
-      if (p & 1)
-        ret = ret * B;
+      if (p & 1) ret = ret * B;
       p >>= 1;
       B = B * B;
     }

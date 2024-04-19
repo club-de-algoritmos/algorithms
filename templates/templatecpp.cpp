@@ -11,7 +11,8 @@ using vi = vector<int>;
 #define SZ(x) ((int)(x).size())
 #define ALL(x) begin(x), end(x)
 #define FOR(i, a, b) for (int i = (int)a; i < (int)b; ++i)
-#define ROF(i, a, b) for (int i = (int)a - 1; i >= (int)b; --i)
+#define ROF(i, a, b) \
+  for (int i = (int)a - 1; i >= (int)b; --i)
 #define ENDL '\n'
 
 signed main() {

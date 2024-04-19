@@ -1,10 +1,11 @@
 /**
- * Descripcion: Dado un grafo bipartito ponderado, empareja cada nodo
- * en la izquierda con un nodo en la derecha, tal que ningun nodo
- * pertenece a 2 emparejamientos y que la suma de los pesos de las
- * aristas usadas es minima. Toma a[N][M], donde a[i][j] es
- * el costo de emparejar L[i] con R[j], retorna (costo minimo, match),
- * donde L[i] es emparejado con R[match[i]], negar costos si se requiere
+ * Descripcion: Dado un grafo bipartito ponderado, empareja
+ * cada nodo en la izquierda con un nodo en la derecha, tal
+ * que ningun nodo pertenece a 2 emparejamientos y que la
+ * suma de los pesos de las aristas usadas es minima. Toma
+ * a[N][M], donde a[i][j] es el costo de emparejar L[i] con
+ * R[j], retorna (costo minimo, match), donde L[i] es
+ * emparejado con R[match[i]], negar costos si se requiere
  * el emparejamiento maximo, se requiere que N <= M.
  * Tiempo: O(N^2 M)
  */

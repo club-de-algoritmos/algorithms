@@ -1,14 +1,18 @@
 /*
- * Descripcion: Si tenemos N cadenas en el diccionario, mantenga log(N) Aho Corasick
- * automatas. El i-esimo automata contiene las primeras 2^k cadenas no incluidas en el
- * automatas anteriores. Por ejemplo, si tenemos N = 19, necesitamos 3 automatas: {s[1]...s[16]},
- * {s[17]...s[18]} y {s[19]}. Para responder a la consulta, podemos atravesar los automatas logN.
- * utilizando la cadena de consulta dada.
- * Para manejar la insercion, primero construya un automata usando una sola cadena y luego
- * Si bien hay dos automatas con el mismo numero de cadenas, los fusionamos mediante
- * un nuevo automata usando fuerza bruta.
- * Para manejar la eliminacion, simplemente insertamos un valor -1 para almacenar en los puntos finales de cada
- * cadena agregada.
+ * Descripcion: Si tenemos N cadenas en el diccionario,
+ * mantenga log(N) Aho Corasick automatas. El i-esimo
+ * automata contiene las primeras 2^k cadenas no incluidas
+ * en el automatas anteriores. Por ejemplo, si tenemos N =
+ * 19, necesitamos 3 automatas: {s[1]...s[16]},
+ * {s[17]...s[18]} y {s[19]}. Para responder a la consulta,
+ * podemos atravesar los automatas logN. utilizando la
+ * cadena de consulta dada. Para manejar la insercion,
+ * primero construya un automata usando una sola cadena y
+ * luego Si bien hay dos automatas con el mismo numero de
+ * cadenas, los fusionamos mediante un nuevo automata usando
+ * fuerza bruta. Para manejar la eliminacion, simplemente
+ * insertamos un valor -1 para almacenar en los puntos
+ * finales de cada cadena agregada.
  * Tiempo: O(m*log(numero_de_inserciones))
  */
 
@@ -48,7 +52,8 @@ class AhoCorasick {
   }
 
   int get_next(int i, char c) const {
-    while (i != -1 && !states[i].ch.count(c)) i = states[i].link;
+    while (i != -1 && !states[i].ch.count(c))
+      i = states[i].link;
     return i != -1 ? states[i].ch.at(c) : 0;
   }
 
@@ -66,7 +71,8 @@ class AhoCorasick {
         auto& a = states[j].accept;
         auto& b = states[states[j].link].accept;
         vector<int> accept;
-        set_union(a.begin(), a.end(), b.begin(), b.end(), back_inserter(accept));
+        set_union(a.begin(), a.end(), b.begin(), b.end(),
+                  back_inserter(accept));
         a = accept;
 
         que.push(j);
@@ -119,7 +125,8 @@ class DynamicAhoCorasick {
       for (auto& t : dict[i]) {
         ac[k].insert(t);
       }
-      dict[k].insert(dict[k].end(), dict[i].begin(), dict[i].end());
+      dict[k].insert(dict[k].end(), dict[i].begin(),
+                     dict[i].end());
       ac[i].clear();
       dict[i].clear();
     }
@@ -129,7 +136,8 @@ class DynamicAhoCorasick {
 
   long long count(const string& str) const {
     long long ret = 0;
-    for (int i = 0; i < (int)ac.size(); ++i) ret += ac[i].count(str);
+    for (int i = 0; i < (int)ac.size(); ++i)
+      ret += ac[i].count(str);
     return ret;
   }
 };

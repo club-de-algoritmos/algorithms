@@ -1,7 +1,8 @@
 /*
- * Descripcion: El prefix function para un string S es definido como un arreglo phi donde phi[i] es
- * la longitud del prefijo propio de S mas largo de la subcadena S[0..i] el cual tambien
- * es sufijo de esta subcadena
+ * Descripcion: El prefix function para un string S es
+ * definido como un arreglo phi donde phi[i] es la longitud
+ * del prefijo propio de S mas largo de la subcadena S[0..i]
+ * el cual tambien es sufijo de esta subcadena
  * Tiempo: O(|s| + |pat|)
  */
 
@@ -40,9 +41,9 @@ int KMP(const string& s, const string& pat) {
 
 /*
  * Automaton KMP
- * El estado en el es el valor actual de la prefix function, y la transicion de un
- * estado a otro se realiza a traves del siguiente caracter
- * Uso: aut[state][nextCharacter]
+ * El estado en el es el valor actual de la prefix function,
+ * y la transicion de un estado a otro se realiza a traves
+ * del siguiente caracter Uso: aut[state][nextCharacter]
  * Tiempo: O(|s|*C)
  */
 // Automaton O(|s|*C)

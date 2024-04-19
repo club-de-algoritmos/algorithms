@@ -20,10 +20,8 @@ struct RollbackDSU {
   }
   bool join(int a, int b) {
     a = get(a), b = get(b);
-    if (a == b)
-      return false;
-    if (e[a] > e[b])
-      swap(a, b);
+    if (a == b) return false;
+    if (e[a] > e[b]) swap(a, b);
     st.push_back({a, e[a]});
     st.push_back({b, e[b]});
     e[a] += e[b];

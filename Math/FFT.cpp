@@ -1,5 +1,6 @@
 /*
- * Descripcion: Este algoritmo permite multiplicar dos polinomios de longitud n
+ * Descripcion: Este algoritmo permite multiplicar dos
+ * polinomios de longitud n
  * Tiempo: O(n log n)
  */
 
@@ -28,9 +29,12 @@ void fft(vector<C> &a) {
   if (i < rev[i]) swap(a[i], a[rev[i]]);
   for (int k = 1; k < n; k *= 2)
     for (int i = 0; i < n; i += 2 * k) FOR(j, 0, k) {
-        // C z = rt[j+k] * a[i+j+k]; // (25% faster if hand-rolled)  /// include-line
-        auto x = (ld *)&rt[j + k], y = (ld *)&a[i + j + k];         /// exclude-line
-        C z(x[0] * y[0] - x[1] * y[1], x[0] * y[1] + x[1] * y[0]);  /// exclude-line
+        // C z = rt[j+k] * a[i+j+k]; // (25% faster if
+        // hand-rolled)  /// include-line
+        auto x = (ld *)&rt[j + k],
+             y = (ld *)&a[i + j + k];  /// exclude-line
+        C z(x[0] * y[0] - x[1] * y[1],
+            x[0] * y[1] + x[1] * y[0]);  /// exclude-line
         a[i + j + k] = a[i + j] - z;
         a[i + j] += z;
       }
@@ -59,7 +63,8 @@ vl conv(const vl &a, const vl &b) {
 vl convMod(const vl &a, const vl &b, const int &M) {
   if (a.empty() || b.empty()) return {};
   vl res(SZ(a) + SZ(b) - 1);
-  int B = 32 - __builtin_clz(SZ(res)), n = 1 << B, cut = int(sqrt(M));
+  int B = 32 - __builtin_clz(SZ(res)), n = 1 << B,
+      cut = int(sqrt(M));
   vector<C> L(n), R(n), outs(n), outl(n);
   FOR(i, 0, SZ(a))
   L[i] = C((int)a[i] / cut, (int)a[i] % cut);
@@ -73,7 +78,8 @@ vl convMod(const vl &a, const vl &b, const int &M) {
   }
   fft(outl), fft(outs);
   FOR(i, 0, SZ(res)) {
-    ll av = ll(real(outl[i]) + .5), cv = ll(imag(outs[i]) + .5);
+    ll av = ll(real(outl[i]) + .5),
+       cv = ll(imag(outs[i]) + .5);
     ll bv = ll(imag(outl[i]) + .5) + ll(real(outs[i]) + .5);
     res[i] = ((av % M * cut + bv) % M * cut + cv) % M;
   }

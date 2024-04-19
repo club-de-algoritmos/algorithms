@@ -1,10 +1,9 @@
 /**
- * Descripcion: arbol de segmentos esparcido, es util cuando el
- * rango usado es bastante largo, y que ademas haya operaciones
- * de rango.
- * Uso:
- * Inicializar el nodo 1 como la raiz -> segtree[1] = {0, 0, 1, 1e9}
- * utilizar los metodos update y query
+ * Descripcion: arbol de segmentos esparcido, es util cuando
+ * el rango usado es bastante largo, y que ademas haya
+ * operaciones de rango. Uso: Inicializar el nodo 1 como la
+ * raiz -> segtree[1] = {0, 0, 1, 1e9} utilizar los metodos
+ * update y query
  * Complejidad: O(log n)
  */
 
@@ -19,7 +18,8 @@ int cnt = 2;
 
 void push_lazy(int node) {
   if (segtree[node].lazy) {
-    segtree[node].sum = segtree[node].tr - segtree[node].tl + 1;
+    segtree[node].sum =
+        segtree[node].tr - segtree[node].tl + 1;
     int mid = (segtree[node].tl + segtree[node].tr) / 2;
     if (segtree[node].l == -1) {
       segtree[node].l = cnt++;
@@ -31,7 +31,8 @@ void push_lazy(int node) {
       segtree[segtree[node].r].tl = mid + 1;
       segtree[segtree[node].r].tr = segtree[node].tr;
     }
-    segtree[segtree[node].l].lazy = segtree[segtree[node].r].lazy = 1;
+    segtree[segtree[node].l].lazy =
+        segtree[segtree[node].r].lazy = 1;
     segtree[node].lazy = 0;
   }
 }
@@ -65,8 +66,8 @@ void update(int node, int l, int r) {  // [l, r]
 
     push_lazy(segtree[node].l);
     push_lazy(segtree[node].r);
-    segtree[node].sum =
-        segtree[segtree[node].l].sum + segtree[segtree[node].r].sum;
+    segtree[node].sum = segtree[segtree[node].l].sum +
+                        segtree[segtree[node].r].sum;
   }
 }
 

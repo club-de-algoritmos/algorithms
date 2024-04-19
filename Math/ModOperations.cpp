@@ -19,8 +19,7 @@ ll modpow(ll a, ll b) {
   ll res = 1;
   a %= MOD;
   while (b) {
-    if (b & 1)
-      res = (res * a) % MOD;
+    if (b & 1) res = (res * a) % MOD;
     a = (a * a) % MOD;
     b >>= 1;
   }

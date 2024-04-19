@@ -1,9 +1,10 @@
 /*
  * Line Container (Convex Hull Trick)
- * Descripcion: Contenedor donde puedes anadir lineas en forma kx+m, y hacer
- * consultas al valor maximo en un punto x.
- * Pro-Tip: Si se busca el valor minimo en un punto x, anadir las lineas con
- * pendiente K negativa (la consulta se dara de forma negativa)
+ * Descripcion: Contenedor donde puedes anadir lineas en
+ * forma kx+m, y hacer consultas al valor maximo en un punto
+ * x. Pro-Tip: Si se busca el valor minimo en un punto x,
+ * anadir las lineas con pendiente K negativa (la consulta
+ * se dara de forma negativa)
  * Tiempo: O(log n)
  */
 
@@ -30,7 +31,8 @@ struct LineContainer : multiset<Line, less<>> {
   void add(ll k, ll m) {
     auto z = insert({k, m, 0}), y = z++, x = y;
     while (isect(y, z)) z = erase(z);
-    if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
+    if (x != begin() && isect(--x, y))
+      isect(x, y = erase(y));
     while ((y = x) != begin() && (--x)->p >= y->p)
       isect(x, erase(y));
   }

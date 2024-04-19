@@ -1,7 +1,8 @@
 /*
- * Descripcion: Un trie es una estructura de datos de arbol multidireccional
- * que se utiliza para almacenar cadenas en un alfabeto. La coincidencia
- * de patrones se puede realizar de manera eficiente usando trie
+ * Descripcion: Un trie es una estructura de datos de arbol
+ * multidireccional que se utiliza para almacenar cadenas en
+ * un alfabeto. La coincidencia de patrones se puede
+ * realizar de manera eficiente usando trie
  * Tiempo: O(n)
  */
 
@@ -18,9 +19,7 @@ class Trie {
   TrieNode *root;
 
  public:
-  Trie() {
-    root = new TrieNode();
-  }
+  Trie() { root = new TrieNode(); }
 
   void insert(string word) {
     TrieNode *curr = root;

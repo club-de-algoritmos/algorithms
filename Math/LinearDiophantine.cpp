@@ -1,6 +1,7 @@
 /**
- * Problema: Dado a, b y n. Encuentra 'x' y 'y' que satisfagan la ecuacion ax + by = n.
- * Imprimir cualquiera de las 'x' y 'y' que la satisfagan.
+ * Problema: Dado a, b y n. Encuentra 'x' y 'y' que
+ * satisfagan la ecuacion ax + by = n. Imprimir cualquiera
+ * de las 'x' y 'y' que la satisfagan.
  */
 
 void solution(int a, int b, int n) {

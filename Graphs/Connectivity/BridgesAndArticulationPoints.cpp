@@ -1,13 +1,16 @@
 /**
- * Descripcion: algoritmo para buscar los puentes y puntos de articulacion
- * en un grafo, regresa un par (P, A) donde P contiene a las aristas que
- * son un puente y A contiene los nodos que son un punto de articulacion,
- * si se requiere un vector<bool> A(n), donde A[i] indica si el
- * i-esimo nodo es un punto de articulacion, retornar articulation.
+ * Descripcion: algoritmo para buscar los puentes y puntos
+ * de articulacion en un grafo, regresa un par (P, A) donde
+ * P contiene a las aristas que son un puente y A contiene
+ * los nodos que son un punto de articulacion, si se
+ * requiere un vector<bool> A(n), donde A[i] indica si el
+ * i-esimo nodo es un punto de articulacion, retornar
+ * articulation.
  * Tiempo: O(V + E)
  */
 
-pair<vector<pi>, vi> findBridgesAndArticulationPoints(vector<vi>& g) {
+pair<vector<pi>, vi> findBridgesAndArticulationPoints(
+    vector<vi>& g) {
   int n = SZ(g), timer = 0;
   vector<pi> bridges;
   vi tin(n, -1), low(n, -1);
@@ -29,8 +32,9 @@ pair<vector<pi>, vi> findBridgesAndArticulationPoints(vector<vi>& g) {
     }
     if (p == -1 && children > 1) articulation[u] = 1;
   };
-  FOR (u, 0, n) if (tin[u] == -1) dfs(dfs, u);
+  FOR(u, 0, n) if (tin[u] == -1) dfs(dfs, u);
   vi articulationPoints;
-  FOR (u, 0, n) if (articulation[u]) articulationPoints.pb(u);
+  FOR(u, 0, n)
+  if (articulation[u]) articulationPoints.pb(u);
   return {bridges, articulationPoints};
 }

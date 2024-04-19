@@ -1,7 +1,8 @@
 /**
- * Descripcion: funciones hash utiles, ya que std::unordered_map
- * no las provee nativamente, es recomendable usar la segunda
- * cuando se trate de un pair<int, int>
+ * Descripcion: funciones hash utiles, ya que
+ * std::unordered_map no las provee nativamente, es
+ * recomendable usar la segunda cuando se trate de un
+ * pair<int, int>
  */
 
 struct hash_pair {

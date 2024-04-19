@@ -1,7 +1,8 @@
 /*
- * Descripcion: El Arbol de Li-Chao es una estructura de datos utilizada en
- * algoritmos de programacion dinamica y geometrica para realizar
- * consultas de maximo (o minimo) en un conjunto de puntos en una linea (o un plano).
+ * Descripcion: El Arbol de Li-Chao es una estructura de
+ * datos utilizada en algoritmos de programacion dinamica y
+ * geometrica para realizar consultas de maximo (o minimo)
+ * en un conjunto de puntos en una linea (o un plano).
  * Tiempo :
  *   Construccion : O(N log N)
  *   Insercion y Consultas : O(log N)

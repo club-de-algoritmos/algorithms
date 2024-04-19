@@ -1,8 +1,10 @@
 /**
- * Descripcion: Algunas operaciones utiles con desplazamiento de bits, si no trabajamos
- * con numeros enteros, usar 1LL o 1ULL, siendo la primer parte
- * operaciones nativas y la segunda del compilador GNU (GCC), si no se
- * trabaja con enteros, agregar ll al final del nombre del metodo
+ * Descripcion: Algunas operaciones utiles con
+ * desplazamiento de bits, si no trabajamos con numeros
+ * enteros, usar 1LL o 1ULL, siendo la primer parte
+ * operaciones nativas y la segunda del compilador GNU
+ * (GCC), si no se trabaja con enteros, agregar ll al final
+ * del nombre del metodo
  * Tiempo por operacion: O(1)
  */
 
@@ -12,13 +14,15 @@
 #define toggleBit(S, j) (S ^= (1 << j))
 #define lowBit(S) (S & (-S))
 #define setAll(S, n) (S = (1 << n) - 1)
-#define modulo(S, N) ((S) & (N - 1))  // Siendo N potencia de 2
+#define modulo(S, N) \
+  ((S) & (N - 1))  // Siendo N potencia de 2
 #define isOdd(S) (s & 1)
 #define isPowerOfTwo(S) (!(S & (S - 1)))
 #define nearestPowerOfTwo(S) (1 << lround(log2(S)))
 #define turnOffLastBit(S) ((S) & (S - 1))
 #define turnOnLastZero(S) ((S) | (S + 1))
-#define turnOffInRange(S, i, j) s &= (((~0) << (j + 1)) | ((1 << i) - 1));
+#define turnOffInRange(S, i, j) \
+  s &= (((~0) << (j + 1)) | ((1 << i) - 1));
 #define turnOffLastConsecutiveBits(S) ((S) & (S + 1))
 #define turnOnLastConsecutiveZeroes(S) ((S) | (S - 1))
 
@@ -29,10 +33,10 @@
 #define countTrailingZeroes(n) __builtin_ctz(n)
 
 /**
- * Descripcion: Si n <= 20 y manejamos subconjuntos, podemos revisar
- * cada uno de ellos representandolos como una mascara de bits, en
- * donde el i-esimo elemento es tomado si el i-esimo bit esta encendido
- * Tiempo: O(2^n)
+ * Descripcion: Si n <= 20 y manejamos subconjuntos, podemos
+ * revisar cada uno de ellos representandolos como una
+ * mascara de bits, en donde el i-esimo elemento es tomado
+ * si el i-esimo bit esta encendido Tiempo: O(2^n)
  */
 int LIMIT = 1 << (n + 1);
 for (int i = 0; i < LIMIT; i++) {

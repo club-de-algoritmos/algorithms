@@ -1,7 +1,8 @@
 /**
- * Descripcion: Algoritmo de Ukkonen para arbol de sufijos. El sufijo no unico
- * mas largo de S tiene longitud len[p]+lef despues de cada llamada a add.
- * Cada iteracion del bucle dentro de add esta cantidad disminuye en uno
+ * Descripcion: Algoritmo de Ukkonen para arbol de sufijos.
+ * El sufijo no unico mas largo de S tiene longitud
+ * len[p]+lef despues de cada llamada a add. Cada iteracion
+ * del bucle dentro de add esta cantidad disminuye en uno
  * Tiempo: O(n log sum)
  */
 
@@ -32,7 +33,8 @@ struct SuffixTree {
     s += c;
     ++lef;
     int lst = 0;
-    for (; lef; p ? p = lnk[p] : lef--) {  // if p != root then lnk[p]
+    for (; lef; p ? p = lnk[p]
+                  : lef--) {  // if p != root then lnk[p]
       // must be defined
       while (lef > 1 && lef > len[to[p][s[SZ(s) - lef]]])
         p = to[p][s[SZ(s) - lef]], lef -= len[p];
@@ -40,7 +42,8 @@ struct SuffixTree {
       char e = s[SZ(s) - lef];
       int& q = to[p][e];
       // next edge of suffix tree
-      if (!q) q = make(SZ(s) - lef, MOD), lnk[lst] = p, lst = 0;
+      if (!q)
+        q = make(SZ(s) - lef, MOD), lnk[lst] = p, lst = 0;
       // make new edge
       else {
         char t = s[pos[q] + lef - 1];
@@ -60,12 +63,14 @@ struct SuffixTree {
     }
   }
 
-  int maxPre(string x) {  // max prefix of x which is substring
+  int maxPre(
+      string x) {  // max prefix of x which is substring
     for (int p = 0, ind = 0;;) {
       if (ind == SZ(x) || !to[p].count(x[ind])) return ind;
       p = to[p][x[ind]];
       FOR(i, 0, len[p]) {
-        if (ind == SZ(x) || x[ind] != s[pos[p] + i]) return ind;
+        if (ind == SZ(x) || x[ind] != s[pos[p] + i])
+          return ind;
         ind++;
       }
     }

@@ -1,10 +1,11 @@
 /*
  * Heavy-Light Decomposition
- * Descripcion: descompone un arbol en caminos pesados y aristas
- * ligeras de tal manera que un camino de cualquier hoja a la raiz
- * contiene a lo mucho log(n) aristas ligeras. Raiz debe ser 0
- * Si el peso lo contiene las aristas, asignar el valor a los "hijos"
- * de los nodos y cambiar lo del comentario
+ * Descripcion: descompone un arbol en caminos pesados y
+ * aristas ligeras de tal manera que un camino de cualquier
+ * hoja a la raiz contiene a lo mucho log(n) aristas
+ * ligeras. Raiz debe ser 0 Si el peso lo contiene las
+ * aristas, asignar el valor a los "hijos" de los nodos y
+ * cambiar lo del comentario
  * Tiempo: O((log N)^2)
  */
 
@@ -32,11 +33,9 @@ void decompose(int v, int h) {
   head[v] = h, pos[v] = cur_pos++;
   // Aqui se puede realizar la actualizacion al segment tree
   // st.update(pos[v], cost[v]);
-  if (heavy[v] != -1)
-    decompose(heavy[v], h);
+  if (heavy[v] != -1) decompose(heavy[v], h);
   for (int c : g[v]) {
-    if (c != parent[v] && c != heavy[v])
-      decompose(c, c);
+    if (c != parent[v] && c != heavy[v]) decompose(c, c);
   }
 }
 
@@ -53,18 +52,19 @@ void init() {
   decompose(0, 0);
 }
 
-// Pro-tip: si se quiere actualizar un camino con cierto valor
-// utilizar esta misma funcion solo que en igual de igualar a
-// res, realizar la actualizacion a un lazy segment tree
+// Pro-tip: si se quiere actualizar un camino con cierto
+// valor utilizar esta misma funcion solo que en igual de
+// igualar a res, realizar la actualizacion a un lazy
+// segment tree
 int query(int a, int b) {
   int res = 0;
   for (; head[a] != head[b]; b = parent[head[b]]) {
-    if (depth[head[a]] > depth[head[b]])
-      swap(a, b);
+    if (depth[head[a]] > depth[head[b]]) swap(a, b);
     res = max(res, st.query(pos[head[b]], pos[b]));
   }
-  if (depth[a] > depth[b])
-    swap(a, b);
-  res = max(res, st.query(pos[a], pos[b]));  // sumar pos[a]+1 si se trabaja con aristas
+  if (depth[a] > depth[b]) swap(a, b);
+  res = max(res, st.query(pos[a],
+                          pos[b]));  // sumar pos[a]+1 si se
+                                     // trabaja con aristas
   return res;
 }

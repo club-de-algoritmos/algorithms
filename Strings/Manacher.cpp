@@ -1,6 +1,7 @@
 /*
- * Descripcion: longitud del palindromo mas grande centrado en cada caracter de la cadena
- * y entre cada par consecutivo
+ * Descripcion: longitud del palindromo mas grande centrado
+ * en cada caracter de la cadena y entre cada par
+ * consecutivo
  * Tiempo: O(n)
  */
 

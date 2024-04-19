@@ -3,7 +3,9 @@
  * Tiempo: O(pasos)
  */
 
-const int N = 1000 * 1000;  // numero de pasos (entre mas grande mas preciso)
+const int N =
+    1000 *
+    1000;  // numero de pasos (entre mas grande mas preciso)
 
 double simpson_integration(double a, double b) {
   double h = (b - a) / N;

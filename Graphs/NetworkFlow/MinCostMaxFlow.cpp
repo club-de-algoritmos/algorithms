@@ -1,11 +1,13 @@
 /**
- * Descripcion: maximo flujo de coste minimo. Se permite que cap[i][j] != cap[j][i], pero
- * las aristas dobles no lo estan, si los costos pueden ser negativos, llamar a setpi antes
- * que calc, los ciclos con costos negativos no son soportados.
+ * Descripcion: maximo flujo de coste minimo. Se permite que
+ * cap[i][j] != cap[j][i], pero las aristas dobles no lo
+ * estan, si los costos pueden ser negativos, llamar a setpi
+ * antes que calc, los ciclos con costos negativos no son
+ * soportados.
  * Tiempo: aproximadamente O(E^2)
  */
 
-#include <bits/extc++.h> // importante de incluir
+#include <bits/extc++.h>  // importante de incluir
 
 const ll INF = numeric_limits<ll>::max() / 4;
 typedef vector<ll> VL;
@@ -18,7 +20,17 @@ struct MCMF {
   VL dist, pi;
   vector<pair<ll, ll>> par;
 
-  MCMF(int N) : N(N), ed(N), red(N), cap(N, VL(N)), flow(cap), cost(cap), seen(N), dist(N), pi(N), par(N) {}
+  MCMF(int N)
+      : N(N),
+        ed(N),
+        red(N),
+        cap(N, VL(N)),
+        flow(cap),
+        cost(cap),
+        seen(N),
+        dist(N),
+        pi(N),
+        par(N) {}
 
   void addEdge(int from, int to, ll cap, ll cost) {
     this->cap[from][to] = cap;
@@ -58,8 +70,7 @@ struct MCMF {
         if (!seen[i])
           relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
       for (int i : red[s])
-        if (!seen[i])
-          relax(i, flow[i][s], -cost[i][s], 0);
+        if (!seen[i]) relax(i, flow[i][s], -cost[i][s], 0);
     }
     FOR(i, 0, N)
     pi[i] = min(pi[i] + dist[i], INF);
@@ -69,10 +80,13 @@ struct MCMF {
     ll totflow = 0, totcost = 0;
     while (path(s), seen[t]) {
       ll fl = INF;
-      for (int p, r, x = t; tie(p, r) = par[x], x != s; x = p)
-        fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
+      for (int p, r, x = t; tie(p, r) = par[x], x != s;
+           x = p)
+        fl = min(fl,
+                 r ? cap[p][x] - flow[p][x] : flow[x][p]);
       totflow += fl;
-      for (int p, r, x = t; tie(p, r) = par[x], x != s; x = p)
+      for (int p, r, x = t; tie(p, r) = par[x], x != s;
+           x = p)
         if (r)
           flow[p][x] += fl;
         else
@@ -88,11 +102,12 @@ struct MCMF {
     pi[s] = 0;
     int it = N, ch = 1;
     ll v;
-    while (ch-- && it--)
-      FOR(i, 0, N)
-      if (pi[i] != INF) for (int to : ed[i]) if (cap[i][to]) if ((v = pi[i] + cost[i][to]) < pi[to])
-          pi[to] = v,
-          ch = 1;
+    while (ch-- && it--) FOR(i, 0, N)
+    if (pi[i] != INF)
+      for (int to : ed[i])
+        if (cap[i][to])
+          if ((v = pi[i] + cost[i][to]) < pi[to])
+            pi[to] = v, ch = 1;
     assert(it >= 0);
   }
 };

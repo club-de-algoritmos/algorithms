@@ -1,7 +1,8 @@
 /**
- * Descripcion: calcula el costo minimo para ir de un nodo hacia todos los
- * demas alcanzables. Puede detectar ciclos negativos, dando una ultima
- * pasada y revisando si alguna distancia se acorta.
+ * Descripcion: calcula el costo minimo para ir de un nodo
+ * hacia todos los demas alcanzables. Puede detectar ciclos
+ * negativos, dando una ultima pasada y revisando si alguna
+ * distancia se acorta.
  * Tiempo: O(VE)
  */
 
@@ -28,7 +29,8 @@ int main() {
   for (auto e : edges) {
     auto [u, v, weight] = e;
     if (dist[u] != INF && dist[u] + weight < dist[v]) {
-      cout << "Graph contains negative weight cycle" << endl;
+      cout << "Graph contains negative weight cycle"
+           << endl;
       return 0;
     }
   }

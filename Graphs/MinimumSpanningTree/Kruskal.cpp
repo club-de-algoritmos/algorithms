@@ -1,15 +1,17 @@
 /**
- * Descripcion: tiene como principal funcion calcular la suma del
- * peso de las aristas del arbol minimo de expansion (MST) de un grafo
- * no dirigido, la estrategia es ir construyendo gradualmente el MST, 
- * donde iterativamente se coloca la arista disponible con menor peso y
- * ademas no conecte 2 nodos que pertenezcan al mismo componente.
+ * Descripcion: tiene como principal funcion calcular la
+ * suma del peso de las aristas del arbol minimo de
+ * expansion (MST) de un grafo no dirigido, la estrategia es
+ * ir construyendo gradualmente el MST, donde iterativamente
+ * se coloca la arista disponible con menor peso y ademas no
+ * conecte 2 nodos que pertenezcan al mismo componente.
  * Tiempo: O(E log E)
  */
 
 #include <../Data Structure/DSU.h>
 
-int kruskal(int V, vector<tuple<int, int, int>> edges) { // Arista {w, u, v}
+int kruskal(int V, vector<tuple<int, int, int>>
+                       edges) {  // Arista {w, u, v}
   DSU dsu;
   dsu.init(V);
 
@@ -23,5 +25,5 @@ int kruskal(int V, vector<tuple<int, int, int>> edges) { // Arista {w, u, v}
       V -= dsu.unite(u, v);
     }
   }
-  return totalWeight;  
+  return totalWeight;
 }

@@ -1,5 +1,6 @@
 /**
- * Descripcion: calcula el costo minimo para ir de un nodo hacia todos los demas alcanzables.
+ * Descripcion: calcula el costo minimo para ir de un nodo
+ * hacia todos los demas alcanzables.
  * Tiempo: O(E log V)
  */
 
@@ -19,8 +20,7 @@ void dijkstra(int x) {
     du *= -1;
     pq.pop();
 
-    if (du > dist[u])
-      continue;
+    if (du > dist[u]) continue;
 
     for (auto &[v, dv] : graph[u]) {
       if (du + dv < dist[v]) {
@@ -30,10 +30,10 @@ void dijkstra(int x) {
     }
   }
 
-  // Si la pq puede tener muchisimos elementos, utilizamos un set, en donde habra a lo mucho V elementos
+  // Si la pq puede tener muchisimos elementos, utilizamos
+  // un set, en donde habra a lo mucho V elementos
   set<pi> pq;
-  for (int u = 0; u < V; ++u)
-    pq.emplace(dist[u], u);
+  for (int u = 0; u < V; ++u) pq.emplace(dist[u], u);
 
   while (!pq.empty()) {
     auto [du, u] = *pq.begin();

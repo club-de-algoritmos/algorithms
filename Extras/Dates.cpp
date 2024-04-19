@@ -1,16 +1,18 @@
 /**
  * Descripcion: rutinas para realizar calculos sobre fechas,
- * en estas rutinas, los meses son expresados como enteros desde
- * el 1 al 12, los dias como enteros desde el 1 al 31, y los anios
- * como enteros de 4 digitos.
+ * en estas rutinas, los meses son expresados como enteros
+ * desde el 1 al 12, los dias como enteros desde el 1 al 31,
+ * y los anios como enteros de 4 digitos.
  */
-string dayOfWeek[] = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+string dayOfWeek[] = {"Mon", "Tue", "Wed", "Thu",
+                      "Fri", "Sat", "Sun"};
 
 // Convierte fecha Gregoriana a entero (fecha Juliana)
 int dateToInt(int m, int d, int y) {
   return 1461 * (y + 4800 + (m - 14) / 12) / 4 +
-         367 * (m - 2 - (m - 14) / 12 * 12) / 12 - 3 * ((y + 4900 + (m - 14) / 12) / 100) / 4 +
-         d - 32075;
+         367 * (m - 2 - (m - 14) / 12 * 12) / 12 -
+         3 * ((y + 4900 + (m - 14) / 12) / 100) / 4 + d -
+         32075;
 }
 
 // Convierte entero (fecha Juliana) a Gregoriana: M/D/Y
@@ -30,9 +32,7 @@ void intToDate(int jd, int &m, int &d, int &y) {
 }
 
 // Convierte entero (fecha Juliana) a dia de la semana
-string intToDay(int jd) {
-  return dayOfWeek[jd % 7];
-}
+string intToDay(int jd) { return dayOfWeek[jd % 7]; }
 
 int main() {
   int jd = dateToInt(3, 24, 2004);

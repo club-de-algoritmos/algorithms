@@ -1,26 +1,32 @@
-// Retorna si el Punto P se encuentra dentro del circulo entre A y B
-bool inDisk(Point a, Point b, Point p) { return (a - p).dot(b - p) <= 0; }
+// Retorna si el Punto P se encuentra dentro del circulo
+// entre A y B
+bool inDisk(Point a, Point b, Point p) {
+  return (a - p).dot(b - p) <= 0;
+}
 
-// Retorna si el punto P se encuentra en el segmento de puntos S a E
+// Retorna si el punto P se encuentra en el segmento de
+// puntos S a E
 bool onSegment(Point a, Point b, Point p) {
   return a.cross(b, p) == 0 && inDisk(a, b, p);
 }
 
 // SEGMENTO - SEGMENTO INTERSECCION
-bool properInter(Point a, Point b, Point c, Point d, Point& p) {
-  double oa = orient(c, d, a),
-         ob = orient(c, d, b),
-         oc = orient(a, b, c),
-         od = orient(a, b, d);
+bool properInter(Point a, Point b, Point c, Point d,
+                 Point& p) {
+  double oa = orient(c, d, a), ob = orient(c, d, b),
+         oc = orient(a, b, c), od = orient(a, b, d);
   if (oa * ob < 0 && oc * od < 0) {
     p = (a * ob - b * oa) / (ob - oa);
     return true;
   }
   return false;
 }
-// Si existe un punto de interseccion unico entre los segmentos de linea que van de A a B y de C a D, se devuelve.
-// Si no existe ningun punto de interseccion, se devuelve un vector vacio.
-// Si existen infinitos, se devuelve un vector con 2 elementos, que contiene los puntos finales del segmento de linea comun.
+// Si existe un punto de interseccion unico entre los
+// segmentos de linea que van de A a B y de C a D, se
+// devuelve. Si no existe ningun punto de interseccion, se
+// devuelve un vector vacio. Si existen infinitos, se
+// devuelve un vector con 2 elementos, que contiene los
+// puntos finales del segmento de linea comun.
 vector<Point> segInter(Point a, Point b, Point c, Point d) {
   Point p;
   if (properInter(a, b, c, d, p)) return {p};

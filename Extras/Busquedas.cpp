@@ -1,9 +1,9 @@
 /**
  * Descripcion: encuentra un valor entre un rango de numeros
- * Busqueda Binaria: divide el intervalo en 2 hasta encontrar
- * el valor minimo correcto
- * Busqueda ternaria: divide el intervalo en 3 para buscar el
- * minimo/maximo de una funcion
+ * Busqueda Binaria: divide el intervalo en 2 hasta
+ * encontrar el valor minimo correcto Busqueda ternaria:
+ * divide el intervalo en 3 para buscar el minimo/maximo de
+ * una funcion.
  * Tiempo: O(log n)
  */
 

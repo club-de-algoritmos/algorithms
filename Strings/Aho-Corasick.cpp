@@ -1,15 +1,17 @@
 /*
- * Descripcion: Este algoritmo te permite buscar rapidamente multiples patrones en un texto
+ * Descripcion: Este algoritmo te permite buscar rapidamente
+ * multiples patrones en un texto
  * Tiempo: O(mk)
  */
 
-// Utilizar esta implementacion cuando las letras permitidas sean pocas
+// Utilizar esta implementacion cuando las letras permitidas
+// sean pocas
 struct AhoCorasick {
-  enum { alpha = 26,
-         first = 'a' };  // change this!
+  enum { alpha = 26, first = 'a' };  // change this!
   struct Node {
     // (nmatches is optional)
-    int back, next[alpha], start = -1, end = -1, nmatches = 0;
+    int back, next[alpha], start = -1, end = -1,
+                           nmatches = 0;
     Node(int v) { memset(next, v, sizeof(next)); }
   };
   vector<Node> N;
@@ -46,7 +48,8 @@ struct AhoCorasick {
           ed = y;
         else {
           N[ed].back = y;
-          (N[ed].end == -1 ? N[ed].end : backp[N[ed].start]) = N[y].end;
+          (N[ed].end == -1 ? N[ed].end
+                           : backp[N[ed].start]) = N[y].end;
           N[ed].nmatches += N[y].nmatches;
           q.push(ed);
         }
@@ -117,13 +120,16 @@ class Aho {
       return;
     }
 
-    // Para calcular el suffix link del vertice actual, necesitamos el suffix link
-    // del padre del vertice y el personaje que nos movio al vertice actual.
-    int curBetterVertex = Trie[Trie[vertex]->parent]->suffixLink;
+    // Para calcular el suffix link del vertice actual,
+    // necesitamos el suffix link del padre del vertice y el
+    // personaje que nos movio al vertice actual.
+    int curBetterVertex =
+        Trie[Trie[vertex]->parent]->suffixLink;
     char chVertex = Trie[vertex]->parentChar;
     while (true) {
       if (Trie[curBetterVertex]->children.count(chVertex)) {
-        Trie[vertex]->suffixLink = Trie[curBetterVertex]->children[chVertex];
+        Trie[vertex]->suffixLink =
+            Trie[curBetterVertex]->children[chVertex];
         break;
       }
       if (curBetterVertex == root) {
@@ -136,7 +142,8 @@ class Aho {
     if (Trie[vertex]->leaf) {
       Trie[vertex]->endWordLink = vertex;
     } else {
-      Trie[vertex]->endWordLink = Trie[Trie[vertex]->suffixLink]->endWordLink;
+      Trie[vertex]->endWordLink =
+          Trie[Trie[vertex]->suffixLink]->endWordLink;
     }
   }
 
@@ -149,7 +156,8 @@ class Aho {
 
   void addString(string s, int wordID) {
     int curVertex = root;
-    FOR(i, 0, s.length()) {  // Iteracion sobre los caracteres de la cadena
+    FOR(i, 0, s.length()) {  // Iteracion sobre los
+                             // caracteres de la cadena
       char c = s[i];
       if (!Trie[curVertex]->children.count(c)) {
         Trie.pb(new Vertex());
@@ -159,7 +167,9 @@ class Aho {
         Trie[curVertex]->children[c] = size;
         size++;
       }
-      curVertex = Trie[curVertex]->children[c];  // Mover al nuevo vertice en el trie
+      curVertex = Trie[curVertex]
+                      ->children[c];  // Mover al nuevo
+                                      // vertice en el trie
     }
     // Marcar el final de la palabra y almacene su ID
     Trie[curVertex]->leaf = true;
@@ -186,24 +196,29 @@ class Aho {
     FOR(j, 0, text.length()) {
       while (true) {
         if (Trie[currentState]->children.count(text[j])) {
-          currentState = Trie[currentState]->children[text[j]];
+          currentState =
+              Trie[currentState]->children[text[j]];
           break;
         }
         if (currentState == root) break;
         currentState = Trie[currentState]->suffixLink;
       }
       int checkState = currentState;
-      // Tratar de encontrar todas las palabras posibles de este prefijo
+      // Tratar de encontrar todas las palabras posibles de
+      // este prefijo
       while (true) {
         checkState = Trie[checkState]->endWordLink;
 
-        // Si estamos en el vertice raiz, no hay mas coincidencias
+        // Si estamos en el vertice raiz, no hay mas
+        // coincidencias
         if (checkState == root) break;
 
         result++;
-        int indexOfMatch = j + 1 - wordsLength[Trie[checkState]->wordID];
+        int indexOfMatch =
+            j + 1 - wordsLength[Trie[checkState]->wordID];
 
-        // Tratando de encontrar todos los patrones combinados de menor longitud
+        // Tratando de encontrar todos los patrones
+        // combinados de menor longitud
         checkState = Trie[checkState]->suffixLink;
       }
     }
@@ -218,7 +233,9 @@ int main() {
   vector<string> patterns = {"abc", "bcd", "abcd"};
   string text = "abcd";
   Aho ahoAlg;
-  FOR(i, 0, patterns.size()) { ahoAlg.addString(patterns[i], i); }
+  FOR(i, 0, patterns.size()) {
+    ahoAlg.addString(patterns[i], i);
+  }
   ahoAlg.prepareAho();
   cout << ahoAlg.processString(text) << ENDL;
 

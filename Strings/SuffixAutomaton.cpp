@@ -1,17 +1,19 @@
 /*
- * Descripcion: Construye un automata finito que reconoce todos los
- * sufijos de una cadena. len corresponde a la longitud maxima de una
- * cadena en la clase de equivalencia, pos corresponde a la primera
- * posicion final de dicha cadena, lnk corresponde al sufijo mas largo
- * que esta en una clase diferente. Los enlaces de sufijos corresponden
- * al arbol de sufijos de la cadena invertida
+ * Descripcion: Construye un automata finito que reconoce
+ * todos los sufijos de una cadena. len corresponde a la
+ * longitud maxima de una cadena en la clase de
+ * equivalencia, pos corresponde a la primera posicion final
+ * de dicha cadena, lnk corresponde al sufijo mas largo que
+ * esta en una clase diferente. Los enlaces de sufijos
+ * corresponden al arbol de sufijos de la cadena invertida
  * Tiempo: O(n log sum)
  */
 
 struct SuffixAutomaton {
   int N = 1;
   vi lnk{-1}, len{0}, pos{-1};  // suffix link,
-  // max length of state, last pos of first occurrence of state
+  // max length of state, last pos of first occurrence of
+  // state
   vector<map<char, int>> nex{1};
   vector<bool> isClone{0};
   // transitions, cloned -> not terminal state
@@ -24,17 +26,20 @@ struct SuffixAutomaton {
       int clone = N++;
       lnk.pb(lnk[q]);
       lnk[q] = clone;
-      len.pb(len[p] + 1), nex.pb(nex[q]),
-          pos.pb(pos[q]), isClone.pb(1);
-      for (; ~p && nex[p][c] == q; p = lnk[p]) nex[p][c] = clone;
+      len.pb(len[p] + 1), nex.pb(nex[q]), pos.pb(pos[q]),
+          isClone.pb(1);
+      for (; ~p && nex[p][c] == q; p = lnk[p])
+        nex[p][c] = clone;
       return clone;
     };
     // if (nex[p].count(c)) return getNex();
     // ^ need if adding > 1 string
     int cur = N++;  // make new state
-    lnk.emplace_back(), len.pb(len[p] + 1), nex.emplace_back(),
-        pos.pb(pos[p] + 1), isClone.pb(0);
-    for (; ~p && !nex[p].count(c); p = lnk[p]) nex[p][c] = cur;
+    lnk.emplace_back(), len.pb(len[p] + 1),
+        nex.emplace_back(), pos.pb(pos[p] + 1),
+        isClone.pb(0);
+    for (; ~p && !nex[p].count(c); p = lnk[p])
+      nex[p][c] = cur;
     int x = getNex();
     lnk[cur] = x;
     return cur;
@@ -54,7 +59,8 @@ struct SuffixAutomaton {
     if (!isClone[v]) oc.pb(pos[v]);  // terminal position
     for (auto u : iLnk[v]) getAllOccur(oc, u);
   }
-  vi allOccur(string s) {  // get all occurrences of s in automaton
+  vi allOccur(
+      string s) {  // get all occurrences of s in automaton
     int cur = 0;
     for (char x : s) {
       if (!nex[cur].count(x)) return {};
@@ -72,10 +78,12 @@ struct SuffixAutomaton {
     // # distinct strings starting at state x
     if (distinct[x]) return distinct[x];
     distinct[x] = 1;
-    for (auto y : nex[x]) distinct[x] += getDistinct(y.second);
+    for (auto y : nex[x])
+      distinct[x] += getDistinct(y.second);
     return distinct[x];
   }
-  ll numDistinct() {  // # distinct substrings including empty
+  ll numDistinct() {  // # distinct substrings including
+                      // empty
     distinct.resize(N);
     return getDistinct(0);
   }
@@ -93,7 +101,8 @@ string s;
 void dfs(int x) {
   if (!S.isClone[x]) sa.pb(SZ(s) - 1 - S.pos[x]);
   vector<pair<char, int>> chr;
-  for (auto t : S.iLnk[x]) chr.pb({s[S.pos[t] - S.len[x]], t});
+  for (auto t : S.iLnk[x])
+    chr.pb({s[S.pos[t] - S.len[x]], t});
   sort(ALL(chr));
   for (auto t : chr) dfs(t.second);
 }
@@ -120,7 +129,9 @@ void sa_init() {
 void sa_extend(char c) {
   int k = sz++, p;
   st[k].len = st[last].len + 1;
-  for (p = last; p != -1 && !st[p].next.count(c); p = st[p].link) st[p].next[c] = k;
+  for (p = last; p != -1 && !st[p].next.count(c);
+       p = st[p].link)
+    st[p].next[c] = k;
   if (p == -1)
     st[k].link = 0;
   else {
@@ -132,7 +143,8 @@ void sa_extend(char c) {
       st[w].len = st[p].len + 1;
       st[w].next = st[q].next;
       st[w].link = st[q].link;
-      for (; p != -1 && st[p].next[c] == q; p = st[p].link) st[p].next[c] = w;
+      for (; p != -1 && st[p].next[c] == q; p = st[p].link)
+        st[p].next[c] = w;
       st[q].link = st[k].link = w;
     }
   }

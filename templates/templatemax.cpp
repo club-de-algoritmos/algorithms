@@ -35,7 +35,9 @@ using vpd = vector<pd>;
 #define lb lower_bound
 #define ub upper_bound
 #define tcT template <class T
-tcT > int lwb(vector<T> &a, const T &b) { return int(lb(all(a), b) - bg(a)); }
+tcT > int lwb(vector<T> &a, const T &b) {
+  return int(lb(all(a), b) - bg(a));
+}
 
 // loops
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
@@ -51,7 +53,10 @@ const int MOD = 1e9 + 7;
 const int MAXN = 1e5 + 5;
 const int INF = 1e9;
 const ll LLINF = 1e18;
-const int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};  // abajo, derecha, arriba, izquierda
+const int dx[4] = {1, 0, -1, 0},
+          dy[4] = {
+              0, 1, 0,
+              -1};  // abajo, derecha, arriba, izquierda
 
 template <class T>
 using pqg = priority_queue<T, vector<T>, greater<T>>;

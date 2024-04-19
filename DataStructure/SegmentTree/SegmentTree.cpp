@@ -1,10 +1,11 @@
 /**
  * Descripcion: arbol de segmentos, bastante poderoso para
  * realizar consultas de rango y actualizaciones de punto,
- * se puede utilizar cualquier operacion conmutativa, es decir,
- * aquella en donde el orden de evaluacion no importe: suma,
- * multiplicacion, XOR, OR, AND, MIN, MAX, etc.
- * Tiempo: O(n log n) en construccion y O(log n) por consulta
+ * se puede utilizar cualquier operacion conmutativa, es
+ * decir, aquella en donde el orden de evaluacion no
+ * importe: suma, multiplicacion, XOR, OR, AND, MIN, MAX.
+ * Tiempo: O(n log n) en construccion y O(log n) por
+ * consulta
  */
 #define NEUT 0
 #define oper(a, b) (a + b)
@@ -38,7 +39,8 @@ struct SegTree {
     if (l <= L && r >= R) return st[p];
     if (l > R || r < L) return NEUT;
     int m = (L + R) >> 1;
-    return oper(query(l, r, lc(p), L, m), query(l, r, rc(p), m + 1, R));
+    return oper(query(l, r, lc(p), L, m),
+                query(l, r, rc(p), m + 1, R));
   }
   T query(int l, int r) { return query(l, r, 0, 0, n - 1); }
 
