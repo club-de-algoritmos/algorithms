@@ -24,9 +24,6 @@ cout << hex << 100 << " " << 1000 << " " << 10000 << dec << endl;
 // Redondea el valor dado al entero mas cercano
 round(5.5);
 
-// piso(a / b)
-cout << a / b;
-
 // techo(a / b)
 cout << (a + b - 1) / b;
 

@@ -9,20 +9,23 @@ Templates/templatepy.py	Plantilla Python
 Templates/templatemax.cpp	Plantilla C++ Max
 
 [Data Structures]
-DataStructure/BIT.cpp	Binary Indexed Tree
-DataStructure/BIT2D.cpp	Binary Indexed Tree 2D
-DataStructure/DSU_Rollback.cpp	DSU RollBack
 DataStructure/FenwickTree.cpp	Fenwick Tree
+DataStructure/FenwickTree2D.cpp	Fenwick Tree 2D
+DataStructure/DSU_Rollback.cpp	DSU RollBack
 DataStructure/OrderStatisticsTree.cpp	Order Statistics Tree
 DataStructure/SparseTable.cpp	Sparse Table
 DataStructure/SegmentTree/SegmentTree.cpp	Segment Tree
 DataStructure/SegmentTree/LazySegmentTree.cpp	Lazy Segment Tree
-DataStructure/SegmentTree/LazyRMQ.cpp	LazyRMQ
 DataStructure/SegmentTree/SparseSegmentTree.cpp	Sparse Segment Tree
 DataStructure/SegmentTree/SparseLazySegmentTree.cpp	Sparse Lazy Propagation
-DataStructure/SegmentTree/PersistentST.cpp	Persistent Segment Tree
-DataStructure/SegmentTree/PersistentLazyPropagation.cpp	Persistent Lazy Propagation
+DataStructure/SegmentTree/PersistentSegmentTree.cpp	Persistent Segment Tree
+DataStructure/SegmentTree/PersistentLazySegmentTree.cpp	Persistent Lazy Segment Tree
 DataStructure/SegmentTree/Iterative.cpp	Iterative Segment Tree
+DataStructure/MoQueries.cpp	Mo Queries
+DataStructure/LineContainer.cpp	Line Container
+DataStructure/LiChaoTree.cpp	Li Chao Tree
+DataStructure/DynamicLiChaoTree.cpp	Dynamic Li Chao Tree
+
 
 [Math]
 Math/Bits.cpp	Operaciones con Bits
@@ -30,6 +33,7 @@ Math/Catalan.py	Catalan
 Math/Combinations.cpp	Combinaciones
 Math/Euclid.cpp	Algoritmo Ext. de Euclides
 Math/FFT.cpp	FFT
+Math/Gauss.cpp	Gauss
 Math/LinearDiophantine.cpp	Linear Diophantine
 Math/Matrix.cpp	Matrix
 Math/ModOperations.cpp	Operaciones con MOD
@@ -40,6 +44,7 @@ Math/Simpson.cpp	Simpson
 Strings/Aho-Corasick.cpp	Aho-Corasick
 Strings/Dynamic_Aho-Corasick.cpp	Dynamic Aho-Corasick
 Strings/Hashing.cpp	Hashing
+Strings/Dynamic_Hashing.cpp	Dynamic Hashing
 Strings/KMP.cpp	KMP
 Strings/Manacher.cpp	Manacher
 Strings/SuffixArray.cpp	Suffix Array
@@ -59,7 +64,7 @@ DP/TSP.cpp	Travelling Salesman Problem
 
 [Graphs]
 Graphs/Connectivity/2SAT.cpp	2SAT
-Graphs/Connectivity/BridgeDetection.cpp	Bridge Detection
+Graphs/Connectivity/BridgesAndArticulationPoints.cpp	Bridges Detection
 Graphs/Connectivity/Kosaraju.cpp	Kosaraju (SCC)
 Graphs/Connectivity/Tarjan.cpp	Tarjan (SCC)
 Graphs/Matching/GeneralMatching.cpp	General Matching
@@ -69,23 +74,27 @@ Graphs/Matching/Kuhn.cpp	Kuhn
 Graphs/MinimumSpanningTree/Kruskal.cpp	Kruskal (MST)
 Graphs/MinimumSpanningTree/Prim.cpp	Prim (MST)
 Graphs/NetworkFlow/Dinic.cpp	Dinic
+Graphs/NetworkFlow/Johnson.cpp	Johnson
 Graphs/NetworkFlow/MinCostMaxFlow.cpp	Min Cost Max Flow
 Graphs/NetworkFlow/PushRelabel.cpp	Push Relabel
 Graphs/ShortestPaths/Bellman-Ford.cpp	Bellman-Ford
 Graphs/ShortestPaths/Dijkstra.cpp	Dijkstra
 Graphs/ShortestPaths/Floyd-Warshall.cpp	Floyd-Warshall
 Graphs/Misc/BinaryLiftingLCA.cpp	Binary Lifting LCA
+Graphs/Misc/CentroidDecomposition.cpp	Centroid Decomposition
 Graphs/Misc/EulerTour.cpp	Euler Tour
-Graphs/Misc/FindCentroid.cpp	Find Centroid
 Graphs/Misc/Hierholzer.cpp	Hierholzer
+Graphs/Misc/HLD.cpp	Heavy-Light Decomposition
 Graphs/Misc/TopologicalSort.cpp	Orden Topologico
 
 [Geometry]
 Geometry/Point.cpp	Punto
 Geometry/Line.cpp	Linea
 Geometry/Segment.cpp	Segmento
+Geometry/Circle.cpp	Circulo
 Geometry/Polygon.cpp	Poligono
-Geometry/2DCircle.cpp	Circulo
+Geometry/PolarSort.cpp	Polar Sort
+Geometry/Half_Plane.cpp	Half Plane
 Geometry/Fraction.cpp	Fracciones
 Geometry/ConvexHull.cpp	Convex Hull
 Geometry/ClosestPair.cpp	Puntos mas cercanos
@@ -95,4 +104,5 @@ Geometry/Point3D.cpp	Punto 3D
 Extras/Busquedas.cpp	Busquedas
 Extras/Dates.cpp	Fechas
 Extras/HashPair.cpp	HashPair
+Extras/int128.cpp	int128
 Extras/Trucos.cpp	Trucos
