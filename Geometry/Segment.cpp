@@ -8,6 +8,14 @@ bool onSegment(Point a, Point b, Point p) {
 
 // SEGMENTO - SEGMENTO INTERSECCION
 bool properInter(Point a, Point b, Point c, Point d, Point& p) {
+  if(a == c || a == d){
+	  p = a;
+	  return true;
+  }
+  if(b == c || b == d){
+	  p = b;
+	  return true;
+  }
   double oa = orient(c, d, a),
          ob = orient(c, d, b),
          oc = orient(a, b, c),
