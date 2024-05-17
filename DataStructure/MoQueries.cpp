@@ -3,7 +3,7 @@
  * Descripcion: Es usado para responder consultas en intervalos (L,R) de manera
  * offline con base a un orden especial basado en bloques moviendose de una consulta
  * a la siguiente anadiendo/removiendo puntos en el inicio o el final.
- * Tiempo: O((N + Q) sqrt(Q))
+ * Tiempo: O((N + Q) sqrt(N))
  */
 
 void add(int idx, int end) { ... }  // add a[idx] (end = 0 or 1)
@@ -11,7 +11,7 @@ void del(int idx, int end) { ... }  // remove a[idx]
 int calc(){...}                     // compute current answer
 
 vi mosAlgo(vector<pi> Q) {
-  int L = 0, R = 0, blk = 350;  // ~N/sqrt(Q)
+  int L = 0, R = 0, blk = 350;  // IMPORTANT!! blk ~= N/sqrt(Q)
   vi s(SZ(Q)), res = s;
 #define K(x) pi(x.first / blk, x.second ^ -(x.first / blk & 1))
   iota(ALL(s), 0);
