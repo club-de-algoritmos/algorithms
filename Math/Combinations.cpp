@@ -1,14 +1,17 @@
 /**
  * Descripcion: Utilizando el metodo de ModOperations.cpp, calculamos de manera
  * eficiente los inversos modulares de x (arreglo inv) y de x! (arreglo invfact),
- * para toda x < MAXN, se utiliza el hecho de que comb(n, k) = (n!) / (k! * (n - k)!)
- * Tiempo: O(MAXN) en el precalculo de inversos modulares y O(1) por query.
+ * para toda x < MAX, se utiliza el hecho de que comb(n, k) = (n!) / (k! * (n - k)!)
+ * Tiempo: O(MAX) en el precalculo de inversos modulares y O(1) por query.
  */
-ll invfact[MAXN];
+
+#include "ModInverse.h";
+
+ll invfact[MAX];
 void precalc_invfact() {
   precalc_inv();
   invfact[1] = 1;
-  for (int i = 2; i < MAXN; i++)
+  for (int i = 2; i < MAX; i++)
     invfact[i] = invfact[i - 1] * inv[i] % MOD;
 }
 
@@ -20,7 +23,7 @@ ll comb(int n, int k) {
 
 /**
  * Descripcion: Se basa en el teorema de lucas, se puede utilizar cuando tenemos
- * una MAXN larga y un modulo m relativamente chico.
+ * una MAX larga y un modulo m relativamente chico.
  * Tiempo: O(m log_m(n))
  */
 ll comb(int n, int k) {
@@ -36,7 +39,7 @@ ll comb(int n, int k) {
  * no trabajamos con modulos (pues no tenemos una mejor opcion), usa DP.
  * Tiempo: O(n^2)
  */
-ll dp[MAXN][MAXN];
+ll dp[MAX][MAX];
 ll comb(int n, int k) {
   if (k > n || k < 0)
     return 0;
@@ -48,7 +51,7 @@ ll comb(int n, int k) {
 }
 
 void calc_comb() {
-  FOR(i, 0, MAXN) {
+  FOR(i, 0, MAX) {
     comb[i][0] = comb[i][i] = 1;
     FOR(j, 1, i)
     comb[i][j] = comb[i - 1][j] + comb[i - 1][j - 1];
