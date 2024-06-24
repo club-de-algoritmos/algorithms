@@ -27,8 +27,8 @@ struct hashing {
       }
     }
   }
-  // Hash del substring en el rango [i, j)
-  ll value(int l, int r) {
+  
+  ll value(int l, int r) { // hash [i, j)
     int a = sbt(h[0][r], mul(h[0][l], xpow[0][r - l], MOD[0]), MOD[0]);
     int b = sbt(h[1][r], mul(h[1][l], xpow[1][r - l], MOD[1]), MOD[1]);
     return (ll(a) << 32) + b;
