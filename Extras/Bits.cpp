@@ -6,7 +6,7 @@
  * Tiempo por operacion: O(1)
  */
 
-#define isOn(S, j) (S & (1 << j))
+#define isOn(S, j) ((S >> j) & 1)
 #define setBit(S, j) (S |= (1 << j))
 #define clearBit(S, j) (S &= ~(1 << j))
 #define toggleBit(S, j) (S ^= (1 << j))
@@ -34,6 +34,6 @@
  * donde el i-esimo elemento es tomado si el i-esimo bit esta encendido
  * Tiempo: O(2^n)
  */
-int LIMIT = 1 << (n + 1);
-for (int i = 0; i < LIMIT; i++) {
+int MX_MSK = 1 << n;
+for (int i = 0; i < MX_MSK; i++) {
 }
