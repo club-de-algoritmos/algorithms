@@ -54,11 +54,11 @@ A minimum edge cover can be found in polynomial time by finding a maximum matchi
 
 ## Path Cover
 A path cover is a set of paths in a graph such that each node of the graph belongs to at least one path. It turns out that in DAGs we can reduce the problem of finding a minimum path cover to the problem of finding a maximum flow in another graph.
-# Node-disjoint
+### Node-disjoint
 In a node-disjoint path cover, each node belongs to exactly one path.
 We can find a minimum node-disjoint path cover by constructing a matching graph where each node of the original graph is represented by two nodes: a left node and a right node. There is an edge from a left node to a right node if there is such an edge in the original graph. In addition, the matching graph contains a source and a sink, and there are edges from the source to all left nodes and from all right nodes to the sink.
 A maximum matching in the resulting graph corresponds to a minimum node-disjoint path cover in the original graph.
-# General
+### General
 A general path cover is a path cover where a node can belong to more than one path.
 A minimum general path cover can be found almost like a minimum node-disjoint path cover. It suffices to add some new edges to the matching graph so that there is an edge $(u, v)$ always when there is a path from $u$ to $v$ in the original graph.
 
@@ -69,10 +69,10 @@ A poset satisfies:
 2. Antisymmetry: if a <= b and b <= a, then a = b
 3. Transitivity: if a <= b and b <= c, then a <= c
 A poset, then, can be represented as a DAG, which later will be very useful.
-# Chains
+### Chains
 A chain poset $C$, is a subset of ordered elements of a poset. That is, the elements are all comparable between them, and then, they can be ordered in a way that, $C_0$ < $C_1$ < ... < $C_k$.
 Similarly, an antichain poset $AC$, is subset of non-comparable elements of a poset.
-# Dilworth's Theorem
+### Dilworth's Theorem
 A chain decomposition is a partition of the elements of the poset into disjoint chains.
 Dilworth's Theorem states that in any finite poset, the largest antichain has the same size as the smallest chain decomposition.
 One can see that the cardinality of the minimum chain decomposition is equivalent to the cardinality of the minimum general path cover of the poset's DAG representation.
