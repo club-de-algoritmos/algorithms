@@ -2,7 +2,7 @@
 A graph is defined by a set of vertices and edges, mathematically, $G=(V,E)$
 
 ## Topological sorting
-A topological sort of a directed graph is a linear ordering of its vertices such that for every directed edge from vertex u to vertex v, u comes before v in the ordering.
+A topological sort of a directed graph is a linear ordering of its vertices such that for every directed edge from vertex $u$ to vertex $v$, $u$ comes before $v$ in the ordering.
 
 ## Directed Acyclic Graph
 A directed acyclic graph (DAG) is a directed graph with no directed cycles. That is, it consists of vertices and edges, with each edge directed from one vertex to another, such that following those directions will never form a closed loop.
@@ -15,7 +15,7 @@ A bipartite graph and its properties are often very useful, below are some examp
 ## Clique
 A clique $C$ in an undirected graph is a subset of the vertices such that every two distinct vertices in it are adjacent. This is equivalent to the condition that the subgraph including only nodes in $C$ and edges incident to two nodes in $C$, is a complete graph.
 A maximal clique is a clique that cannot be extended by including one more adjacent vertex, that is, a clique which does not exist exclusively within the vertex set of a larger clique.
-A maximum clique of a graph, G, is a clique, such that there is no clique with more vertices
+A maximum clique of a graph, $G$, is a clique, such that there is no clique with more vertices
 
 ## Maximum Flow
 In the maximum flow problem, our task is to send as much flow as possible from the source to the sink. The weight of each edge is a capacity that restricts the flow that can go through the edge. In each intermediate node, the incoming and outgoing flow has to be equal.
@@ -50,7 +50,7 @@ Let $X$ be any set of left nodes and let $f(X)$ be the set of their neighbors. A
 ## Edge Cover
 An edge cover $EC$ is a set of edges such that every vertex of the graph is incident to at least one edge of the set.
 A minimum edge cover is an edge cover that contains the minimum possible number of edges
-A minimum edge cover can be found in polynomial time by finding a maximum matching and extending it greedily so that all vertices are covered. That is, given the minimum edge cover $EC$ and the maximum matching |M| of a graph, $|EC|=|V|-|M|$
+A minimum edge cover can be found in polynomial time by finding a maximum matching and extending it greedily so that all vertices are covered. That is, given the minimum edge cover $EC$ and the maximum matching $|M|$ of a graph, $|EC|=|V|-|M|$
 
 ## Path Cover
 A path cover is a set of paths in a graph such that each node of the graph belongs to at least one path. It turns out that in DAGs we can reduce the problem of finding a minimum path cover to the problem of finding a maximum flow in another graph.
@@ -65,9 +65,9 @@ A minimum general path cover can be found almost like a minimum node-disjoint pa
 ## Partially Ordered Set (poset)
 A poset is a set such that for certain pair of elements, one precedes another. The word partial is used to indicate that not every pair of elements needs to be comparable.
 A poset satisfies:
-1. Reflexivity: a <= a
-2. Antisymmetry: if a <= b and b <= a, then a = b
-3. Transitivity: if a <= b and b <= c, then a <= c
+1. Reflexivity: $a \le a$
+2. Antisymmetry: if $a \le b$ and $b \le a$, then $a = b$
+3. Transitivity: if $a \le b$ and $b \le c$, then $a \le c$
 A poset, then, can be represented as a DAG, which later will be very useful.
 ### Chains
 A chain poset $C$, is a subset of ordered elements of a poset. That is, the elements are all comparable between them, and then, they can be ordered in a way that, $C_0$ < $C_1$ < ... < $C_k$.
