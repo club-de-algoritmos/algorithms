@@ -10,20 +10,15 @@
 int prim(vector<vector<pi>>& g) {
   vector<bool> taken(SZ(g), 0);
   priority_queue<pi> pq;
-
   auto process = [&](int u) -> void {
     taken[u] = 1;
     for (auto &[v, w] : g[u]) if (!taken[v]) pq.push({-w, v});
   };
-  
   process(0);
   int totalWeight = 0, takenEdges = 0;
   while (!pq.empty() && takenEdges != SZ(g) - 1) {
-    auto [w, u] = pq.top();
-    pq.pop();
-
+    auto [w, u] = pq.top();pq.pop();
     if (taken[u]) continue;
-
     totalWeight -= w;
     process(u);
     ++takenEdges;

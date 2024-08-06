@@ -1,33 +1,23 @@
 /**
- * Descripcion: modifica la matriz de adyacencia graph[n][n],
- * tal que graph[i][j] pasa a indicar el costo minimo para ir
- * desde el nodo i al j, para cualquier (i, j).
+ * Descripcion: algoritmo de Floyd-Warshall para calcular la minima distancia
+ * entre cada par de nodos, si no se requiere recalcular el camino, ignorar p.
+ * Retorna un par (g, p), en donde g es una matriz modificada en la que g[i][j]
+ * es el costo minimo para llegar desde el nodo i al nodo j y p es el nodo
+ * anterior en dicho camino, utilizado para recalcular la ruta.
  * Tiempo: O(n^3)
  */
-int graph[MAXN][MAXN];
-int p[MAXN][MAXN];  // Guardar camino
 
-void floydWarshall() {
-  FOR(i, 0, N) {  // Inicializar el camino
-    FOR(j, 0, N) {
-      p[i][j] = i;
-    }
+pair<vector<vi>, vi> floydWarshall(vector<vi> g) {
+  int n = SZ(g);
+  vector<vi> p(n, vi(n));
+  FOR (i, 0, n) FOR (j, 0, n) p[i][j] = i;
+  FOR(k,0,n)FOR(i,0,n)FOR(j,0,n)if(g[i][k]+g[k][j]<g[i][j]){
+    p[i][j] = p[k][j];
+    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
   }
-
-  FOR(k, 0, N) {
-    FOR(i, 0, N) {
-      FOR(j, 0, N) {
-        if (graph[i][k] + graph[k][j] < graph[i][j])  // Solo utilizar si necesitas el camino
-          p[i][j] = p[k][j];
-
-        graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j]);
-      }
-    }
-  }
+  return {g, p};
 }
-
-void printPath(int i, int j) {
-  if (i != j)
-    printPath(i, p[i][j]);
+void printPath(vector<vi>& p, int i, int j) {
+  if (i != j) printPath(p, i, p[i][j]);
   cout << j << " ";
 }
