@@ -9,12 +9,10 @@
 
 #include <../Data Structure/DSU.h>
 
-int kruskal(int V, vector<tuple<int, int, int>> edges) { // Arista {w, u, v}
+int kruskal(int V, vector<tuple<int, int, int>>& edges) { // Arista {w, u, v}
   DSU dsu;
   dsu.init(V);
-
   sort(ALL(edges));
-
   int totalWeight = 0;
   for (int i = 0; i < SZ(edges) && V > 1; i++) {
     auto [w, u, v] = edges[i];

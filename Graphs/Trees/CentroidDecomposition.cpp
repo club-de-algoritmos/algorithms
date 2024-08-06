@@ -12,40 +12,17 @@
  * estar en log |V| componentes, es decir, puede tener como maximo log |V| ancestros.
  * Tiempo: O(|V| log |V|)
  */
-vector<int> g[MAX];
-bool is_removed[MAX];
-int subtree_size[MAX];
-
-int get_subtree_size(int u, int parent = -1) {
-	subtree_size[u] = 1;
-	for (int v : g[u]) {
-		if (v == parent || is_removed[v])
-			continue;
-		subtree_size[u] += get_subtree_size(v, u);
-	}
-	return subtree_size[u];
+int calcsz(vi& szt, int u, int f){
+	szt[u]=1;
+	for(auto v:g[u])if(v!=f&&!tk[v])szt[u]+=calcsz(v,u);
+	return szt[u];
 }
-
-int get_centroid(int u, int tree_size, int parent = -1) {
-	for (int v : g[u]) {
-		if (v == parent || is_removed[v])
-      continue;
-		if (subtree_size[v] * 2 > tree_size)
-			return get_centroid(v, tree_size, u);
+void cdfs(vi& szt, vi& fat, vi& tk, int x=0, int f=-1, int sz=-1){ // O(nlogn)
+	if(sz<0)sz=calcsz(x,-1);
+	for(auto v:g[x])if(!tk[v]&&szt[v]*2>=sz){
+		szt[x]=0;cdfs(szt, fat, tk, v,f,sz);return;
 	}
-	return u;
+	tk[x]=true;fat[x]=f;
+	for(auto v:g[x])if(!tk[v])cdfs(szt, fat, tk, v,x);
 }
-
-void build_centroid_decomposition(int u = 0) {
-	int centroid = get_centroid(u, get_subtree_size(u));
-
-	// do something
-
-	is_removed[centroid] = true;
-
-	for (int v : g[centroid]) {
-		if (is_removed[v]) 
-      continue
-		build_centroid_decomposition(v);
-	}
-}
+void centroid(vi& szt, vi& fat, vi& tk){cdfs(szt, fat, tk);}

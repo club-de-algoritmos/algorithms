@@ -7,14 +7,8 @@
  * Tiempo: O(n)
  */
 
-vi g[MAXN];
-int val[MAXN], in[MAXN], out[MAXN], toursz = 0;
-void dfs(int u, int p) {
-  in[u] = toursz++;
-
-  for (auto& v : g[u])
-    if (v != p)
-      dfs(v, u);
-
-  out[u] = toursz++;
+void dfs(vi& g, vi& in, vi& out, int& t, int u, int p) {
+  in[u] = ++t;
+  for (auto& v:g[u])if(v!=p)dfs(g,in,out,t,v,u);
+  out[u] = t;
 }
