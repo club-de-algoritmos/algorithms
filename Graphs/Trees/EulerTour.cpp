@@ -6,7 +6,7 @@
  * todos los nodos en el, el nodo con menor valor, etc.
  * Tiempo: O(n)
  */
-vector<vi> g[maxn];
+vi g[maxn];
 int in[maxn], out[maxn], t = 0;
 void dfs(int u, int p) {
   in[u] = ++t;

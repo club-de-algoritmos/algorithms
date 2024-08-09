@@ -7,7 +7,7 @@
  * Tiempo: O(n log n) en construccion y O(log n) por consulta
  * Status: testeado en ICPC LATAM 2017 - Imperial Roads 
  */
-vector<vi> g[maxn];
+vi g[maxn];
 int jmp[maxn][maxlog], d[maxn];
 void dfs(int u, int p = -1) {
   jmp[u][0]=p;
