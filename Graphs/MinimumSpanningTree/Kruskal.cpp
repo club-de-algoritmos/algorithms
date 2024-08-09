@@ -5,21 +5,20 @@
  * donde iterativamente se coloca la arista disponible con menor peso y
  * ademas no conecte 2 nodos que pertenezcan al mismo componente.
  * Tiempo: O(E log E)
+ * Status: testeado en ICPC LATAM 2017 - Imperial Roads 
  */
 
 #include <../Data Structure/DSU.h>
 
-int kruskal(int V, vector<tuple<int, int, int>>& edges) { // Arista {w, u, v}
+int kruskal(int n, vector<tuple<int, int, int>>& e) {
+  sort(ALL(e));
   DSU dsu;
-  dsu.init(V);
-  sort(ALL(edges));
-  int totalWeight = 0;
-  for (int i = 0; i < SZ(edges) && V > 1; i++) {
-    auto [w, u, v] = edges[i];
-    if (!dsu.sameSet(u, v)) {
-      totalWeight += w;
-      V -= dsu.unite(u, v);
-    }
+  dsu.init(n);
+  int mst = 0;
+  for (auto &[w, u, v]:e)if(dsu.get(u)!=dsu.get(v)){
+    mst += w;
+    dsu.join(u, v);
+    if (--n == 1) break;
   }
-  return totalWeight;  
+  return mst;  
 }

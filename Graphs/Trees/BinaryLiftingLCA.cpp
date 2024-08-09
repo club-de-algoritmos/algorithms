@@ -5,31 +5,26 @@
  * esto es para obtener el ancestro comun mas bajo (LCA).
  * Importante inicializar jmp[i][0] para todo i.
  * Tiempo: O(n log n) en construccion y O(log n) por consulta
+ * Status: testeado en ICPC LATAM 2017 - Imperial Roads 
  */
-
-constexpr int maxlog = 25;
-void dfs(vector<vi>& g, vector<vi>& jmp, vi& depth, int u, int p = -1, int d = 0) {
-  depth[u]=d;
+vi g[maxn];
+int jmp[maxn][maxlog], d[maxn];
+void dfs(int u, int p = -1) {
   jmp[u][0]=p;
-  for (auto &v:g[u])if(v!=p)dfs(g,jmp,depth,v,u,d+1);
+  for (auto &v:g[u])if(v!=p)d[v]=d[u]+1,dfs(v,u);
 }
-pair<vector<vi>,vi> build(vector<vi>& g) {
+void build() {
   int n = SZ(g);
-  vi depth(n);
-  vector<vi> jmp(n, vi(maxlog, -1));
-  dfs(g, jmp, depth, 0);
+  dfs(0);
   for(int i=1;i<maxlog;i++)for(int u=0;u<n;u++)if(jmp[u][i-1]!=-1)
     jmp[u][i]=jmp[jmp[u][i-1]][i-1];
-  return {jmp, depth};
 }
-int LCA(vector<vi>& jmp, vi& depth, int p, int q) {
-  if (depth[p] < depth[q]) swap(p, q);
-  int dist = depth[p] - depth[q];
-  for(int i=maxlog-1;i>=0;i--)if((dist>>i)&1)p = jmp[p][i];
-  if (p == q)return p;
-  for(int i=maxlog-1;i>=0;i--)if(jmp[p][i]!=jmp[q][i])p=jmp[p][i],q=jmp[q][i];
-  return jmp[p][0];
+int LCA(int u, int v) {
+  if (d[u] < d[v]) swap(u, v);
+  int dist = d[u] - d[v];
+  for(int i=maxlog-1;i>=0;i--)if((dist>>i)&1)u=jmp[u][i];
+  if(u==v)return u;
+  for(int i=maxlog-1;i>=0;i--)if(jmp[u][i]!=jmp[v][i])u=jmp[u][i],v=jmp[v][i];
+  return jmp[u][0];
 }
-int dist(vector<vi>& jpm, vi& depth, int u, int v) {
-  return depth[u] + depth[v] - 2 * depth[LCA(jmp, depth, u, v)];
-}
+int dist(int u, int v) { return d[u] + d[v] - 2 * d[LCA(u, v)]; }
