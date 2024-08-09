@@ -7,7 +7,7 @@
  * Uso: STree st;st.init(arr);st.upd(0, n, 3);st.query(0, n);
  * Tiempo de construccion: O(n)
  * Tiempo de consulta y actualizacion: O(log n)
- * Status: testeado en CSES 1651
+ * Status: testeado en CSES Dynamic Range Sum Queries
  */
 #define LAZY_NEUT 0
 #define VAL_NEUT 0

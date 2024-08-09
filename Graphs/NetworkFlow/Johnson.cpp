@@ -1,6 +1,7 @@
 /**
  * Descripcion: maximo flujo de coste minimo. Asume costos negativos, 
  * pero no soporta ciclos negativos.
+ * Tiempo: FALTA!!!
 */
 
 struct MCMF {

@@ -1,9 +1,11 @@
 /**
- * Descripcion: Rapidamente encuentra el clique maximo de un grafo (dado como una
- * matriz simetrica de bitset; aristas propias no permitidas). Puede ser usado para
- * encontrar un conjunto independiente maximo, encontrando un clique del grafo complemento.
- * Tiempo: Corre en aproximadamente 1s para n=155 y el peor caso para grafos aleatorios (p=.90)
- * mas veloz para grafos dispersos.
+ * Descripcion: Rapidamente encuentra el clique maximo de
+ * un grafo (dado como una matriz simetrica de bitset;
+ * aristas propias no permitidas). Puede ser usado para 
+ * encontrar un conjunto independiente maximo, encontrando
+ * un clique del grafo complemento.
+ * Tiempo: aproximadamente 1s para n=155 y el peor caso para
+ * grafos aleatorios (p=.90), mas veloz para grafos dispersos.
  */
 typedef vector<bitset<200>> vb;
 struct Maxclique {

@@ -1,8 +1,9 @@
 /**
- * Descripcion: calcula el costo minimo para ir de un nodo hacia todos los demas alcanzables.
+ * Descripcion: calcula el costo minimo para
+ * ir desde un nodo hacia todos los demas.
  * Tiempo: O(E log V)
  */
-vi dijkstra(vector<pi>& g, int x) {
+vi dijkstra(vector<vector<pi>>& g, int x) {
   int n = SZ(g); vi d(n);
   FOR(i, 0, n) d[i] = INF;
   d[x] = 0;
@@ -18,8 +19,8 @@ vi dijkstra(vector<pi>& g, int x) {
   }
   return d;
 }
-// Si la pq puede tener muchisimos elementos, utilizamos un set, en donde habra a lo mucho V elementos
-vi dijkstra(vector<pi>& g, int st) {
+// Para tener a lo mucho V elementos en la PQ
+vi dijkstra(vector<vector<pi>>& g, int st) {
   int n = SZ(g); vi d(n);
   set<pi> pq;
   FOR(i,0,n)pq.emplace(d[i], i),d[i]=INF;

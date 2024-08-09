@@ -1,8 +1,9 @@
 /**
- * Descripcion: Corre un callback para todos los cliques maximales en un grafo (dado 
- * como una matriz simetrica de bitset; aristas propias no permitidas). El callback
+ * Descripcion: Corre un callback para todos los cliques
+ * maximales en un grafo (dado como una matriz simetrica
+ * de bitset; aristas propias no permitidas). El callback
  * recibe un bitset representando al clique maximal.
- * Tiempo: O(3^{n/3}), mucho mas veloz para grafos dispersos.
+ * Tiempo: O(3^{V/3}), mucho mas veloz para grafos dispersos.
  */
 /// Posible optimizacion: en el mayor nivel de recursion
 /// ignora 'cands' y muevete hacia nodos en orden de grado

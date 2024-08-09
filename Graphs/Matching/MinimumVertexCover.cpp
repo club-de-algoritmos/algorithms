@@ -2,9 +2,10 @@
  * Descripcion: Encuentra los vertices en el minimum vertex
  * cover de un grafo bipartito, si solo se quiere la cardinalidad
  * leer teoria.
+ * Tiempo: depende el algoritmo de matching que se use
  */
-
-#include "Kuhn.h"
+ 
+#include "Kuhn.h" // o hopcroft karp
 
 vi cover(vector<vi>& g, int n, int m) {
 	auto [res, btoa] = kuhn(g, m);

@@ -1,10 +1,12 @@
 /**
- * Descripcion: algoritmo de Floyd-Warshall para calcular la minima distancia
- * entre cada par de nodos, si no se requiere recalcular el camino, ignorar p.
- * Retorna un par (g, p), en donde g es una matriz modificada en la que g[i][j]
- * es el costo minimo para llegar desde el nodo i al nodo j y p es el nodo
- * anterior en dicho camino, utilizado para recalcular la ruta.
- * Tiempo: O(n^3)
+ * Descripcion: algoritmo de Floyd-Warshall para calcular la
+ * minima distancia entre cada par de nodos, si no se requiere
+ * recalcular el camino, ignorar p.
+ * Retorna un par (g, p), en donde g es una matriz modificada
+ * en la que g[i][j] es el costo minimo para llegar desde el
+ * nodo i al nodo j y p es el nodo anterior en dicho camino,
+ * utilizado para recalcular la ruta.
+ * Tiempo: O(V^3)
  */
 
 pair<vector<vi>, vi> floydWarshall(vector<vi> g) {

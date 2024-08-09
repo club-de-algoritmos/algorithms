@@ -1,11 +1,13 @@
 /**
  * Descripcion: segment tree persistente para consulta de
- * minimos en un rango. Al igual que en uno esparcido, los
- * nodos se agregan gradualmente.
+ * minimos en un rango. Un segment tree es persistente si
+ * mantiene datos viejos disponible tras actualizaciones.
  * init y upd retornan la nueva raiz, rt es la ultima raiz
+ * Para mejorar velocidad, usar arreglos.
  * Uso: STree st;st.init(arr);
  * vi roots;roots.pb(st.upd(0,3));st.query(roots[1], 0, n);
  * Tiempo: log(n)
+ * Status: testeado en OmegaUp Campo Inestable
  */
 
 #define NEUT 0

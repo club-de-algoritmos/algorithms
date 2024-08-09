@@ -6,7 +6,7 @@
  * Tiempo de construccion: O(n)
  * Tiempo de consulta y actualizacion: O(log n)
  * Memoria total: O(n + qlog(n))
- * Status: testeado
+ * Status: testeado en CSES Hotel Queries
  */
 #define NEUT 0
 struct STree {
