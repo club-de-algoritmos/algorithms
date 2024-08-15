@@ -1,6 +1,6 @@
 /**
- * Descripcion: segment tree 2D para suma en cuadrado y
- * actualizacion en punto. 
+ * Descripcion: segment tree 2D para suma en un
+ * rectangulo y actualizacion en punto. 
  * Implementacion iterativa para usar x4 menos memoria.
  * Uso: STree st(n,m);st.build(a);st.query(x0,y0,x1,y1);
  * (x0, y0) es la esquina superior izquierda (inclusiva)
