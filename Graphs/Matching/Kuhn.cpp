@@ -2,11 +2,11 @@
  * Descripcion: Algoritmo simple para maximo emparejamiento bipartito.
  * el grafo g debe de ser una lista de los vecinos de la particion
  * izquierda y m el numero de nodos en la particion derecha.
- * Retorna (Numero de emparejamientos, btoa[]) donde btoa[i] sera el
+ * Retorna (|matching|, btoa) donde btoa[i] sera el
  * emparejamiento para el vertice i del lado derecho o -1 si no lo tiene
  * Tiempo: O(VE)
  */
-int kuhn(vector<vi>& g, int m) {
+pair<int, vi> kuhn(vector<vi>& g, int m) {
   vi vis, btoa(m, -1);
   auto dfs = [&](auto self, int j) -> bool {
     if (btoa[j] == -1) return 1;

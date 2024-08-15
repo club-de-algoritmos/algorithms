@@ -7,17 +7,15 @@
 
 #include "ModInverse.h";
 
-ll invfact[MAX];
+ll invfact[maxn];
 void precalc_invfact() {
   precalc_inv();
   invfact[1] = 1;
-  for (int i = 2; i < MAX; i++)
-    invfact[i] = invfact[i - 1] * inv[i] % MOD;
+  for (int i = 2; i < maxn; i++) invfact[i] = invfact[i - 1] * inv[i] % MOD;
 }
 
 ll comb(int n, int k) {
-  if (n < k)
-    return 0;
+  if (n < k) return 0;
   return fact[n] * invfact[k] % MOD * invfact[n - k] % MOD;
 }
 
@@ -27,33 +25,19 @@ ll comb(int n, int k) {
  * Tiempo: O(m log_m(n))
  */
 ll comb(int n, int k) {
-  if (n < k || k < 0)
-    return 0;
-  if (n == k)
-    return 1;
+  if (n < k || k < 0) return 0;
+  if (n == k) return 1;
   return comb(n % MOD, k % MOD) * comb(n / MOD, k / MOD) % MOD;
 }
 
 /*
- * Descripcion: Se basa en el triangulo de pascal, vale la pena su uso cuando
- * no trabajamos con modulos (pues no tenemos una mejor opcion), usa DP.
+ * Descripcion: precalculo de combinaciones
  * Tiempo: O(n^2)
  */
-ll dp[MAX][MAX];
-ll comb(int n, int k) {
-  if (k > n || k < 0)
-    return 0;
-  if (n == k || k == 0)
-    return 1;
-  if (dp[n][k] != -1)
-    return dp[n][k];
-  return dp[n][k] = comb(n - 1, k) + comb(n - 1, k - 1);
-}
-
+ll c[maxn][maxk];
 void calc_comb() {
-  FOR(i, 0, MAX) {
-    comb[i][0] = comb[i][i] = 1;
-    FOR(j, 1, i)
-    comb[i][j] = comb[i - 1][j] + comb[i - 1][j - 1];
+  FOR(i, 0, MAX_N) {
+    c[i][0] = c[i][i] = 1;
+    FOR(j, 1, i) c[i][j] = c[i - 1][j] + c[i - 1][j - 1];
   }
 }

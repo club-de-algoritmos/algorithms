@@ -1,49 +1,36 @@
 /**
- * Descripcion: calcula el costo minimo para ir de un nodo hacia todos los demas alcanzables.
+ * Descripcion: calcula el costo minimo para
+ * ir desde un nodo hacia todos los demas.
  * Tiempo: O(E log V)
  */
-
-vector<pi> graph[MAXN];
-int dist[MAXN];
-
-// O(V + E log V)
-void dijkstra(int x) {
-  FOR(i, 0, MAXN)
-  dist[i] = INF;
-  dist[x] = 0;
-
-  priority_queue<pi> pq;
-  pq.emplace(0, x);
+vi dijkstra(vector<vector<pi>>& g, int x) {
+  int n = SZ(g); vi d(n);
+  FOR(i, 0, n) d[i] = INF;
+  d[x] = 0;
+  priority_queue<pi> pq; pq.emplace(0, x);
   while (!pq.empty()) {
-    auto [du, u] = pq.top();
+    auto [du, u] = pq.top(); pq.pop();
     du *= -1;
-    pq.pop();
-
-    if (du > dist[u])
-      continue;
-
-    for (auto &[v, dv] : graph[u]) {
-      if (du + dv < dist[v]) {
-        dist[v] = du + dv;
-        pq.emplace(-dist[v], v);
-      }
+    if (du > d[u]) continue;
+    for (auto &[v, w]:g[u])if(du+w<d[v]){
+      d[v] = du + w;
+      pq.emplace(-d[v], v);
     }
   }
-
-  // Si la pq puede tener muchisimos elementos, utilizamos un set, en donde habra a lo mucho V elementos
+  return d;
+}
+// Para tener a lo mucho V elementos en la PQ
+vi dijkstra(vector<vector<pi>>& g, int st) {
+  int n = SZ(g); vi d(n);
   set<pi> pq;
-  for (int u = 0; u < V; ++u)
-    pq.emplace(dist[u], u);
-
+  FOR(i,0,n)pq.emplace(d[i], i),d[i]=INF;
   while (!pq.empty()) {
-    auto [du, u] = *pq.begin();
-    pq.erase(pq.begin());
-    for (auto &[v, dv] : graph[u]) {
-      if (du + dv < dist[v]) {
-        pq.erase(pq.find({dist[v], v}));
-        dist[v] = du + dv;
-        pq.emplace(dist[v], v);
-      }
+    auto [du, u] = *pq.begin(); pq.erase(pq.begin());
+    for (auto &[v, w] : g[u])if(du+w<d[v]){
+      pq.erase(pq.find({d[v], v}));
+      d[v] = du + w;
+      pq.emplace(d[v], v);
     }
   }
+  return d;
 }

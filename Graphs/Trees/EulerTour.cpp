@@ -6,15 +6,10 @@
  * todos los nodos en el, el nodo con menor valor, etc.
  * Tiempo: O(n)
  */
-
-vi g[MAXN];
-int val[MAXN], in[MAXN], out[MAXN], toursz = 0;
+vi g[maxn];
+int in[maxn], out[maxn], t = 0;
 void dfs(int u, int p) {
-  in[u] = toursz++;
-
-  for (auto& v : g[u])
-    if (v != p)
-      dfs(v, u);
-
-  out[u] = toursz++;
+  in[u] = ++t;
+  for (auto& v:g[u])if(v!=p)dfs(v,u);
+  out[u] = t;
 }
