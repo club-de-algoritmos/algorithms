@@ -3,78 +3,85 @@
  * mas largo de S tiene longitud len[p]+lef despues de cada llamada a add.
  * Cada iteracion del bucle dentro de add esta cantidad disminuye en uno
  * Tiempo: O(n log sum)
+ * PENDIENTE
  */
 
 struct SuffixTree {
-  string s;
-  int N = 0;
-  vi pos, len, lnk;
-  vector<map<char, int>> to;
+  enum { N = 200010,
+         ALPHA = 26 };  // N ~ 2*maxlen+10
+  int toi(char c) { return c - 'a'; }
+  string a;  // v = cur node, q = cur position
+  int t[N][ALPHA], l[N], r[N], p[N], s[N], v = 0, q = 0, m = 2;
 
-  SuffixTree(string _s) {
-    make(-1, 0);
-    int p = 0, lef = 0;
-    for (char c : _s) add(p, lef, c);
-    add(p, lef, '$');
-    s.pop_back();  // terminal char
-  }
-
-  int make(int POS, int LEN) {  // lnk[x] is meaningful when
-    // x!=0 and len[x] != MOD
-    pos.pb(POS);
-    len.pb(LEN);
-    lnk.pb(-1);
-    to.emplace_back();
-    return N++;
-  }
-  void add(int& p, int& lef, char c) {  // longest
-    // non-unique suffix is at node p with lef extra chars
-    s += c;
-    ++lef;
-    int lst = 0;
-    for (; lef; p ? p = lnk[p] : lef--) {  // if p != root then lnk[p]
-      // must be defined
-      while (lef > 1 && lef > len[to[p][s[SZ(s) - lef]]])
-        p = to[p][s[SZ(s) - lef]], lef -= len[p];
-      // traverse edges of suffix tree while you can
-      char e = s[SZ(s) - lef];
-      int& q = to[p][e];
-      // next edge of suffix tree
-      if (!q) q = make(SZ(s) - lef, MOD), lnk[lst] = p, lst = 0;
-      // make new edge
-      else {
-        char t = s[pos[q] + lef - 1];
-        if (t == c) {
-          lnk[lst] = p;
-          return;
-        }  // suffix not unique
-        int u = make(pos[q], lef - 1);
-        // new node for current suffix-1, define its link
-        to[u][c] = make(SZ(s) - 1, MOD);
-        to[u][t] = q;
-        // new, old nodes
-        pos[q] += lef - 1;
-        if (len[q] != MOD) len[q] -= lef - 1;
-        q = u, lnk[lst] = u, lst = u;
+  void ukkadd(int i, int c) {
+  suff:
+    if (r[v] <= q) {
+      if (t[v][c] == -1) {
+        t[v][c] = m;
+        l[m] = i;
+        p[m++] = v;
+        v = s[v];
+        q = r[v];
+        goto suff;
       }
+      v = t[v][c];
+      q = l[v];
+    }
+    if (q == -1 || c == toi(a[q]))
+      q++;
+    else {
+      l[m + 1] = i;
+      p[m + 1] = m;
+      l[m] = l[v];
+      r[m] = q;
+      p[m] = p[v];
+      t[m][c] = m + 1;
+      t[m][toi(a[q])] = v;
+      l[v] = q;
+      p[v] = m;
+      t[p[m]][toi(a[l[m]])] = m;
+      v = s[p[m]];
+      q = l[m];
+      while (q < r[m]) {
+        v = t[v][toi(a[q])];
+        q += r[v] - l[v];
+      }
+      if (q == r[m])
+        s[m] = v;
+      else
+        s[m] = m + 2;
+      q = r[v] - (q - r[m]);
+      m += 2;
+      goto suff;
     }
   }
 
-  int maxPre(string x) {  // max prefix of x which is substring
-    for (int p = 0, ind = 0;;) {
-      if (ind == SZ(x) || !to[p].count(x[ind])) return ind;
-      p = to[p][x[ind]];
-      FOR(i, 0, len[p]) {
-        if (ind == SZ(x) || x[ind] != s[pos[p] + i]) return ind;
-        ind++;
-      }
-    }
+  SuffixTree(string a) : a(a) {
+    fill(r, r + N, sz(a));
+    memset(s, 0, sizeof s);
+    memset(t, -1, sizeof t);
+    fill(t[1], t[1] + ALPHA, 0);
+    s[0] = 1;
+    l[0] = l[1] = -1;
+    r[0] = r[1] = p[0] = p[1] = 0;
+    rep(i, 0, sz(a)) ukkadd(i, toi(a[i]));
   }
-  vi sa;  // generate suffix array
-  void genSa(int x = 0, int Len = 0) {
-    if (!SZ(to[x]))
-      sa.pb(pos[x] - Len);  // found terminal node
-    else
-      for (auto t : to[x]) genSa(t.second, Len + len[x]);
+
+  // example: find longest common substring (uses ALPHA = 28)
+  pii best;
+  int lcs(int node, int i1, int i2, int olen) {
+    if (l[node] <= i1 && i1 < r[node]) return 1;
+    if (l[node] <= i2 && i2 < r[node]) return 2;
+    int mask = 0, len = node ? olen + (r[node] - l[node]) : 0;
+    rep(c, 0, ALPHA) if (t[node][c] != -1)
+        mask |= lcs(t[node][c], i1, i2, len);
+    if (mask == 3)
+      best = max(best, {len, r[node] - len});
+    return mask;
+  }
+  static pii LCS(string s, string t) {
+    SuffixTree st(s + (char)('z' + 1) + t + (char)('z' + 2));
+    st.lcs(0, sz(s), sz(s) + 1 + sz(t), 0);
+    return st.best;
   }
 };
