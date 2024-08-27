@@ -1,18 +1,19 @@
 /*
- * Descripcion: Un SuffixArray es un array ordenado de todos los sufijos de un string
- * Tiempo: O(|S|)
- * Aplicaciones:
- *  - Encontrar todas las ocurrencias de un substring P dentro del string S - O(|P| log n)
- *  - Construir el longest common prefix-interval - O(n log n)
- *  - Contar todos los substring diferentes en el string S - O(n)
- *  - Encontrar el substring mas largo entre dos strings S y T - O(|S|+|T|)
+ * Descripcion: construye un arreglo ordenado de todos los sufijos de un string
+ * Uso:
+ * - SA[i]: es el indice de inicio del sufijo el cual es el i-nesimo elemento
+ *   del suffix array (el arreglo es de tamano n+1 y SA[0] = n)
+ * - LCP: es un arreglo que contiene el prefijo comun mas largo entre los strings
+ *   vecinos del suffix array
+ *   LCP[i] = LCP(sa[i], sa[i-1]), LCP[0] = 0
+ * Tiempo: O(n log n)
  */
 
 struct SuffixArray {
   vi SA, LCP;
   string S;
   int n;
-  SuffixArray(string &s, int lim = 256) : S(s), n(SZ(s) + 1) {  // O(n log n)
+  SuffixArray(string &s, int lim = 256) : S(s), n(SZ(s) + 1) {
     int k = 0, a, b;
     vi x(ALL(s) + 1), y(n), ws(max(n, lim)), rank(n);
     SA = LCP = y, iota(ALL(SA), 0);
@@ -43,8 +44,7 @@ struct SuffixArray {
       rank[SA[i]] = i;
     }
     for (int i = 0, j; i < n - 1; LCP[rank[i++]] = k)
-      for (k &&k--, j = SA[rank[i] - 1]; s[i + k] == s[j + k]; k++)
-        ;
+      for (k &&k--, j = SA[rank[i] - 1]; s[i + k] == s[j + k]; k++);
   }
 
   /*
