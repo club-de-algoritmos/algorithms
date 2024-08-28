@@ -65,11 +65,11 @@ Binary exponenciation is very useful when handling modulo and matrix operations.
 ### Chinese remainder theorem
 Given a system of equations.
 
-$x \cong a_1 (mod n_1)$
+$x \cong a_1\ (mod\ n_1)$
 
 .....................
 
-$x \cong a_k (mod n_k)$
+$x \cong a_k\ (mod\ n_k)$
 
 The task is to find $x$. The Chinese remainder theorem asserts that if the $n_i$ are pairwise coprime (coprime between all pairs of the set), then there is one and only one integer x, such that $0 \le x < N$ where $N$ is the product of all the $n_i$. The solution for a pair of equations is quite simple using the extended Euclid algorithm; for more than $2$ equations, solve $2$ at a time.
 
