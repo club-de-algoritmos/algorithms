@@ -1,78 +1,74 @@
-# Any line followed by a '#' character is ignored
-# Section headings must be in square brackets
-# Subsections within a section should follow the format:
-#   [filename within code directory][tab character \t][subsection title]
+# Contenido
 
 [Templates]
-Templates/templatecpp.cpp	Plantilla C++
-Templates/templatepy.py	Plantilla Python
-Templates/templatemax.cpp	Plantilla C++ Max
+Templates/templatecpp.cpp	Template C++
+Templates/templatemax.cpp	Template Max
+Templates/templatepy.py	Template Python
 
-[Data Structures]
+[DataStructure]
+DataStructure/DSURollback.cpp	DSU Rollback
+DataStructure/DynamicLiChaoTree.cpp	Dynamic Li Chao Tree
 DataStructure/FenwickTree.cpp	Fenwick Tree
 DataStructure/FenwickTree2D.cpp	Fenwick Tree 2D
-DataStructure/DSU_Rollback.cpp	DSU RollBack
-DataStructure/OrderStatisticsTree.cpp	Order Statistics Tree
-DataStructure/SparseTable.cpp	Sparse Table
-DataStructure/SegmentTree/SegmentTree.cpp	Segment Tree
-DataStructure/SegmentTree/LazySegmentTree.cpp	Lazy Segment Tree
-DataStructure/SegmentTree/SparseSegmentTree.cpp	Sparse Segment Tree
-DataStructure/SegmentTree/SparseLazySegmentTree.cpp	Sparse Lazy Propagation
-DataStructure/SegmentTree/PersistentSegmentTree.cpp	Persistent Segment Tree
-DataStructure/SegmentTree/PersistentLazySegmentTree.cpp	Persistent Lazy Segment Tree
-DataStructure/SegmentTree/Iterative.cpp	Iterative Segment Tree
-DataStructure/MoQueries.cpp	Mo Queries
-DataStructure/LineContainer.cpp	Line Container
+DataStructure/Fraction.cpp	Fraction
 DataStructure/LiChaoTree.cpp	Li Chao Tree
-DataStructure/DynamicLiChaoTree.cpp	Dynamic Li Chao Tree
+DataStructure/LineContainer.cpp	Line Container
+DataStructure/Matrix.cpp	Matrix
+DataStructure/MoQueries.cpp	Mo Queries
+DataStructure/OrderStatisticsTree.cpp	Order Statistics Tree
+DataStructure/SegmentTree.cpp	Segment Tree
+DataStructure/SegmentTree2D.cpp	Segment Tree 2D
+DataStructure/SegmentTreeLazy.cpp	Segment Tree Lazy
+DataStructure/SegmentTreePersistent.cpp	Segment Tree Persistent
+DataStructure/SegmentTreeSparse.cpp	Segment Tree Sparse
+DataStructure/SparseTable.cpp	Sparse Table
+DataStructure/SubMatrix.cpp	Sub Matrix
 
+[NumberTheory]
+NumberTheory/CRT.cpp	CRT
+NumberTheory/Euclid.cpp	Euclid
+NumberTheory/LinearDiophantine.cpp	Linear Diophantine
+NumberTheory/LinearSieve.cpp	Linear Sieve
+NumberTheory/Mobius.cpp	Mobius
+NumberTheory/ModInverse.cpp	Mod Inverse
+NumberTheory/ModMultiplication.cpp	Mod Multiplication
+NumberTheory/ModPow.cpp	Mod Pow
+NumberTheory/Sieve.cpp	Sieve
 
-[Math]
-Math/Bits.cpp	Operaciones con Bits
-Math/Catalan.py	Catalan
-Math/Combinations.cpp	Combinaciones
-Math/Euclid.cpp	Algoritmo Ext. de Euclides
-Math/FFT.cpp	FFT
-Math/Gauss.cpp	Gauss
-Math/LinearDiophantine.cpp	Linear Diophantine
-Math/Matrix.cpp	Matrix
-Math/ModOperations.cpp	Operaciones con MOD
-Math/Primes.cpp	Numeros Primos
-Math/Simpson.cpp	Simpson
+[Combinatorial]
+Combinatorial/Catalan.py	Catalan
+Combinatorial/Combinations.cpp	Combinations
 
-[Strings]
-Strings/Aho-Corasick.cpp	Aho-Corasick
-Strings/Dynamic_Aho-Corasick.cpp	Dynamic Aho-Corasick
-Strings/Hashing.cpp	Hashing
-Strings/Dynamic_Hashing.cpp	Dynamic Hashing
-Strings/KMP.cpp	KMP
-Strings/Manacher.cpp	Manacher
-Strings/SuffixArray.cpp	Suffix Array
-Strings/SuffixAutomaton.cpp	Suffix Automaton
-Strings/SuffixTree.cpp	Suffix Tree
-Strings/Trie.cpp	Trie
-Strings/Z-algorithm.cpp	Z-Algorithm
+[Numerical]
+Numerical/Determinant.cpp	Determinant
+Numerical/FFT.cpp	FFT
+Numerical/Gauss.cpp	Gauss
+Numerical/Simplex.cpp	Simplex
+Numerical/Simpson.cpp	Simpson
 
-[Dynamic Programming]
-DP/2DSUM.cpp	2D Sum
-DP/DequeTecnique.cpp	Tecnica con Deque
-DP/Digit.cpp	DP con digitos
+[DP]
+DP/DequeTecnique.cpp	Deque Tecnique
+DP/Digit.cpp	Digit
 DP/Knapsack.cpp	Knapsack
-DP/LIS.cpp	Longest Increasing Subsequence
+DP/LIS.cpp	LIS
 DP/MonotonicStack.cpp	Monotonic Stack
-DP/TSP.cpp	Travelling Salesman Problem
+DP/TSP.cpp	TSP
 
 [Graphs]
 Graphs/Connectivity/2SAT.cpp	2SAT
-Graphs/Connectivity/BridgesAndArticulationPoints.cpp	Bridges Detection
-Graphs/Connectivity/Kosaraju.cpp	Kosaraju (SCC)
-Graphs/Connectivity/Tarjan.cpp	Tarjan (SCC)
+Graphs/Connectivity/BridgesAndArticulationPoints.cpp	Bridges And Articulation Points
+Graphs/Connectivity/MaximalCliques.cpp	Maximal Cliques
+Graphs/Connectivity/MaximumClique.cpp	Maximum Clique
+Graphs/Connectivity/SCC.cpp	SCC
 Graphs/Matching/GeneralMatching.cpp	General Matching
-Graphs/Matching/Hopcroft-Karp.cpp	Hopcroft Karp
-Graphs/Matching/Hungarian.cpp	Hungaro
+Graphs/Matching/HopcroftKarp.cpp	Hopcroft Karp
+Graphs/Matching/Hungarian.cpp	Hungarian
 Graphs/Matching/Kuhn.cpp	Kuhn
-Graphs/MinimumSpanningTree/Kruskal.cpp	Kruskal (MST)
-Graphs/MinimumSpanningTree/Prim.cpp	Prim (MST)
+Graphs/Matching/MinimumVertexCover.cpp	Minimum Vertex Cover
+Graphs/MinimumSpanningTree/Kruskal.cpp	Kruskal
+Graphs/MinimumSpanningTree/Prim.cpp	Prim
+Graphs/Misc/Hierholzer.cpp	Hierholzer
+Graphs/Misc/TopologicalSort.cpp	Topological Sort
 Graphs/NetworkFlow/Dinic.cpp	Dinic
 Graphs/NetworkFlow/Johnson.cpp	Johnson
 Graphs/NetworkFlow/MinCostMaxFlow.cpp	Min Cost Max Flow
@@ -80,30 +76,44 @@ Graphs/NetworkFlow/PushRelabel.cpp	Push Relabel
 Graphs/ShortestPaths/Bellman-Ford.cpp	Bellman-Ford
 Graphs/ShortestPaths/Dijkstra.cpp	Dijkstra
 Graphs/ShortestPaths/Floyd-Warshall.cpp	Floyd-Warshall
-Graphs/Misc/BinaryLiftingLCA.cpp	Binary Lifting LCA
-Graphs/Misc/CentroidDecomposition.cpp	Centroid Decomposition
-Graphs/Misc/EulerTour.cpp	Euler Tour
-Graphs/Misc/Hierholzer.cpp	Hierholzer
-Graphs/Misc/HLD.cpp	Heavy-Light Decomposition
-Graphs/Misc/TopologicalSort.cpp	Orden Topologico
+Graphs/Trees/BinaryLiftingLCA.cpp	Binary Lifting LCA
+Graphs/Trees/CentroidDecomposition.cpp	Centroid Decomposition
+Graphs/Trees/EulerTour.cpp	Euler Tour
+Graphs/Trees/HLD.cpp	HLD
 
+[Strings]
+Strings/AhoCorasick.cpp	Aho Corasick
+Strings/DynamicAhoCorasick.cpp	Dynamic Aho Corasick
+Strings/EvilHashing.cpp	Evil Hashing
+Strings/Hashing.cpp	Hashing
+Strings/HashingDynamic.cpp	Hashing Dynamic
+Strings/KMP.cpp	KMP
+Strings/KMPAutomaton.cpp	KMPAutomaton
+Strings/Manacher.cpp	Manacher
+Strings/PalindromicTree.cpp	Palindromic Tree
+Strings/SuffixArray.cpp	Suffix Array
+Strings/SuffixAutomaton.cpp	Suffix Automaton
+Strings/SuffixTree.cpp	Suffix Tree
+Strings/Trie.cpp	Trie
+Strings/ZAlgorithm.cpp	ZAlgorithm
 
 [Geometry]
-Geometry/Point.cpp	Punto
-Geometry/Line.cpp	Linea
-Geometry/Segment.cpp	Segmento
-Geometry/Circle.cpp	Circulo
-Geometry/Polygon.cpp	Poligono
-Geometry/PolarSort.cpp	Polar Sort
-Geometry/Half_Plane.cpp	Half Plane
-Geometry/Fraction.cpp	Fracciones
+Geometry/Circle.cpp	Circle
+Geometry/ClosestPair.cpp	Closest Pair
 Geometry/ConvexHull.cpp	Convex Hull
-Geometry/ClosestPair.cpp	Puntos mas cercanos
-Geometry/Point3D.cpp	Punto 3D
+Geometry/HalfPlane.cpp	Half Plane
+Geometry/Line.cpp	Line
+Geometry/Point.cpp	Point
+Geometry/Point3D.cpp	Point3D
+Geometry/PolarSort.cpp	Polar Sort
+Geometry/Polygon.cpp	Polygon
+Geometry/Segment.cpp	Segment
 
 [Extras]
+Extras/Bits.cpp	Bits
 Extras/Busquedas.cpp	Busquedas
-Extras/Dates.cpp	Fechas
-Extras/HashPair.cpp	HashPair
-Extras/int128.cpp	int128
+Extras/Dates.cpp	Dates
+Extras/HashPair.cpp	Hash Pair
+Extras/Random.cpp	Random
 Extras/Trucos.cpp	Trucos
+Extras/int128.cpp	int128
