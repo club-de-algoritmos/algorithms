@@ -1,7 +1,7 @@
 /*
  * Descripcion: Es un algoritmo de programacion lineal para
- * resolver problemas de optimizacion.  El objetivo es maximizar
- * una función lineal(c) sujeta a un conjunto de restricciones lineales(b).
+ * resolver problemas de optimizacion. El objetivo es maximizar
+ * una funcion lineal(c) sujeta a un conjunto de restricciones lineales(b).
  * Maximiza cTx sujeto a Ax < b, x > 0
  * Uso: T val = LPSolver(A,b,c).solve(x);
  * Entrada: A -> MxN matriz de r
