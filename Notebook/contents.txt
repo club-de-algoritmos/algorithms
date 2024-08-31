@@ -7,11 +7,9 @@ Templates/templatepy.py	Template Python
 
 [DataStructure]
 DataStructure/DSURollback.cpp	DSU Rollback
-DataStructure/DynamicLiChaoTree.cpp	Dynamic Li Chao Tree
 DataStructure/FenwickTree.cpp	Fenwick Tree
 DataStructure/FenwickTree2D.cpp	Fenwick Tree 2D
 DataStructure/Fraction.cpp	Fraction
-DataStructure/LiChaoTree.cpp	Li Chao Tree
 DataStructure/LineContainer.cpp	Line Container
 DataStructure/Matrix.cpp	Matrix
 DataStructure/MoQueries.cpp	Mo Queries
