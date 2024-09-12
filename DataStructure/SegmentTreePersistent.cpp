@@ -39,7 +39,7 @@ struct STree {
     int m = (s + e) / 2;
     return comb(query(L[k],s,m,a,b),query(R[k],m,e,a,b));
   }
-  int init(vi &a) { return init(0, n, a); }
+  int init(vi &a) { return rt=init(0, n, a); }
   int upd(int k, int p, int v){return rt=upd(k,0,n,p,v);}
   int upd(int p, int v){return rt=upd(rt, p, v);}
   int query(int k, int a, int b){return query(k,0,n,a,b);};
