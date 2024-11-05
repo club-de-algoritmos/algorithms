@@ -12,17 +12,14 @@ using vi = vector<int>;
 #define ROF(i, a, b) for (int i = (int)a - 1; i >= (int)b; --i)
 #define ENDL '\n'
 
-void solve() {
-}
+void solve() {}
 
 signed main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(nullptr);
+  cin.tie(0)->sync_with_stdio(0);
 
   int t = 1;
   cin >> t;
-  while (t--)
-    solve();
+  while (t--) solve();
 
   return 0;
 }
