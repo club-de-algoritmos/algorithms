@@ -4,6 +4,7 @@
 // y cualquier punto A,B,C
 Point circumCenter(const Point& A, const Point& B, const Point& C) {
   Point b = C - A, c = B - A;
+  assert(b.cross(c) != 0);
   return A + (b * c.sq() - c * b.sq()).perp() / b.cross(c) / 2;
 }
 
