@@ -2,10 +2,10 @@
 // Retorna el punto central del circulo que pasa por A,B,C
 // Si se busca el radio solo sacar la distancia entre el centro
 // y cualquier punto A,B,C
-Point circumCenter(Point a, Point b, Point c) {
-  b = b - a, c = c - a;
-  assert(b.cross(c) != 0);  // no existe circunferencia colinear
-  return a + (b * sq(c) - c * sq(b)).perp() / b.cross(c) / 2;
+Point circumCenter(const Point& A, const Point& B, const Point& C) {
+  Point b = C - A, c = B - A;
+  assert(b.cross(c) != 0);
+  return A + (b * c.sq() - c * b.sq()).perp() / b.cross(c) / 2;
 }
 
 // Retorna el punto que se encuentra en el circulo dado el angulo
@@ -15,7 +15,7 @@ Point circlePoint(Point c, double r, double ang) {
 
 // Retorna el numero de intersecciones de la linea l con el circulo (o,r)
 // y los pone en out. Si solo hay una interseccion el par de out es igual
-int circleLine(Point o, double r, Line l, pair<Point, Point> &out) {
+int circleLine(Point o, double r, Line l, pair<Point, Point>& out) {
   double h2 = r * r - l.sqDist(o);
   if (h2 >= 0) {
     Point p = l.proj(o);
@@ -27,7 +27,8 @@ int circleLine(Point o, double r, Line l, pair<Point, Point> &out) {
 
 // Retorna las intersecciones entre dos circulos. Funciona igual que
 // la interseccion con una linea
-int circleCircle(Point o1, double r1, Point o2, double r2, pair<Point, Point> &out) {
+int circleCircle(Point o1, double r1, Point o2, double r2,
+                 pair<Point, Point>& out) {
   Point d = o2 - o1;
   double d2 = d.sq();
   if (d2 == 0) {
@@ -45,7 +46,7 @@ int circleCircle(Point o1, double r1, Point o2, double r2, pair<Point, Point> &o
 
 // Retorna un booleano indicando si los dos circulos intersectan o no
 bool circleCircle(Point o1, double r1, Point o2, double r2) {
-  double dx = o1.x - o2.x, dy = o1.y - o2.y, rs = r1 + r2; 
+  double dx = o1.x - o2.x, dy = o1.y - o2.y, rs = r1 + r2;
   return dx * dx + dy * dy <= rs * rs;
 }
 
@@ -79,7 +80,8 @@ double circlePoly(Point c, double r, vector<Point> ps) {
 //   encontrada como line(o1,p).perp(p)
 // * Si hay 0 tangentes, no hace nada
 // * Si los circulos son identicos, aborta
-int tangents(Point o1, double r1, Point o2, double r2, bool inner, vector<pair<Point, Point>> &out) {
+int tangents(Point o1, double r1, Point o2, double r2, bool inner,
+             vector<pair<Point, Point>>& out) {
   if (inner) r2 = -r2;
   Point d = o2 - o1;
   double dr = r1 - r2, d2 = d.sq(), h2 = d2 - dr * dr;
