@@ -7,42 +7,90 @@
  * Uso: STree st;st.init(arr);st.upd(0, n, 3);st.query(0, n);
  * Tiempo de construccion: O(n)
  * Tiempo de consulta y actualizacion: O(log n)
- * Status: testeado en CSES Dynamic Range Sum Queries
+ * Status: testeado en CSES Range Update Queries
  */
-#define LAZY_NEUT 0
-#define VAL_NEUT 0
 struct STree {
-  int n; vector<int> st, lazy;
-  STree(int n):st(4*n+5,VAL_NEUT),lazy(4*n+5,LAZY_NEUT),n(n){}
-  int comb(int x, int y) { return x + y; }
-  void init(int k, int s, int e, vi& a) {
-    if (s + 1 == e) { st[k] = a[s]; return; }
-    int m = (s+e)/2;
-    init(2*k+1, s, m, a); init(2*k+2, m, e, a);
-    st[k] = comb(st[2*k+1], st[2*k+2]);
+  #define ls (k << 1) + 1
+  #define rs (k << 1) + 2
+  #define lp ls, s, m
+  #define rp rs, m, e
+
+  int n;
+  vector<int> st, lazy;
+
+  STree(int n) : n(n), st((n << 2) + 5), lazy((n << 2) + 5) {}
+
+  int merge(int x, int y) {
+    return x + y;
   }
-  void push(int k, int s, int e) { 
-    if (lazy[k] == LAZY_NEUT) return;
-    st[k] += (e - s) * lazy[k];
-    if(s+1!=e)lazy[2*k+1]+=lazy[k],lazy[2*k+2]+=lazy[k];
-    lazy[k] = LAZY_NEUT;
+
+  void pull(int k) {
+    st[k] = merge(st[ls], st[rs]);
   }
+
+  void apply(int k, int s, int e, int v) {
+    st[k] += (e - s) * v;
+    lazy[k] += v;
+  }
+
+  void push(int k, int s, int e) {
+    if (lazy[k]) {
+      int m = (s + e) >> 1;
+      apply(lp, lazy[k]);
+      apply(rp, lazy[k]);
+      lazy[k] = 0;
+    }
+  }
+
+  void build(int k, int s, int e, vector<int>& a) {
+    if (s + 1 == e) {
+      st[k] = a[s];
+      return;
+    }
+    int m = (s + e) >> 1;
+    build(lp, a);
+    build(rp, a);
+    pull(k);
+  }
+
   int query(int k, int s, int e, int a, int b) {
+    if (a <= s && e <= b) {
+      return st[k];
+    }
     push(k, s, e);
-    if (a <= s && e <= b) return st[k];
-    if (e <= a || s >= b) return VAL_NEUT;
-    int m = (s+e)/2;
-    return comb(query(2*k+1,s,m,a,b),query(2*k+2,m,e,a,b));
+    int m = (s + e) >> 1;
+    if (a >= m) {
+      return query(rp, a, b);
+    }
+    if (b <= m) {
+      return query(lp, a, b);
+    }
+    return merge(query(lp, a, b), query(rp, a, b));
   }
+
   void upd(int k, int s, int e, int a, int b, int v) {
+    if (a <= s && e <= b) {
+      apply(k, s, e, v);
+      return;
+    }
     push(k, s, e);
-    if (e <= a || s >= b) return;
-    if (a<=s && e<=b){lazy[k] += v;push(k,s,e);return;}
-    int m = (s+e)/2;
-    upd(2*k+1,s,m,a,b,v); upd(2*k+2,m,e,a,b,v);
-    st[k] = comb(st[2*k+1], st[2*k+2]);
+    int m = (s + e) >> 1;
+    if (a < m) {
+      upd(lp, a, b, v);
+    }
+    if (b > m) {
+      upd(rp, a, b, v);
+    }
+    pull(k);
   }
-  int query(int a, int b) { return query(0, 0, n, a, b); }
-  void upd(int a, int b, int v) { upd(0, 0, n, a, b, v); }
-  void init(vi& a) { init(0, 0, n, a); }
+
+  int query(int a, int b) {
+    return query(0, 0, n, a, b);
+  }
+  void upd(int a, int b, int v) {
+    upd(0, 0, n, a, b, v);
+  }
+  void build(vector<int>& a) {
+    build(0, 0, n, a);
+  }
 };

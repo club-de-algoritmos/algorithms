@@ -7,40 +7,90 @@
  * Uso: STree st;st.init(arr);
  * vi roots;roots.pb(st.upd(0,3));st.query(roots[1], 0, n);
  * Tiempo: log(n)
- * Status: testeado en OmegaUp Campo Inestable
+ * Status: testeado en SWERC 2020 - H. Figurines
  */
-
-#define NEUT 0
 struct STree {
-  vi st, L, R; int n, sz, rt;
-  STree(int n):st(1,NEUT),L(1,0),R(1,0),n(n),rt(0),sz(1){}
-  int comb(int x, int y) { return min(x, y); }
-  int new_node(int v, int l = 0, int r = 0) {
-    int ks = SZ(st); st.pb(v);L.pb(l);R.pb(r);
-    return ks;
+  #define ls st[k].l
+  #define rs st[k].r
+  #define lp ls, s, m
+  #define rp rs, m, e
+  #define NEUT 0
+ 
+  struct Node {
+    int v, l, r;
+    Node() : v(NEUT), l(0), r(0) {}
+    Node(int _v, int _l, int _r) {
+      v = _v;
+      l = _l;
+      r = _r;
+    }
+  };
+ 
+  int n, lastRoot;
+  vector<Node> st;
+ 
+  STree(int n) : n(n), st(1) {}
+ 
+  int merge(int x, int y) {
+    return x + y;
   }
-  int init(int s, int e, vi &a) {
-    if (s + 1 == e)return new_node(a[s]);
-    int m = (s+e)/2, l = init(s,m,a), r = init(m,e,a);
-    return new_node(comb(st[l], st[r]), l, r);
+ 
+  void pull(int k) {
+    st[k].v = merge(st[ls].v, st[rs].v);
   }
-  int upd(int k, int s, int e, int p, int v) {
-    int ks = new_node(st[k], L[k], R[k]);
-    if (s + 1 == e) { st[ks] = v; return ks; }
-    int m = (s + e) / 2, ps;
-    if (p < m) ps = upd(L[ks], s, m, p, v), L[ks] = ps;
-    else ps = upd(R[ks], m, e, p, v), R[ks] = ps;
-    st[ks] = comb(st[L[ks]], st[R[ks]]);
-    return ks;
+ 
+  int cloneNode(Node node) {
+    st.emplace_back(node.v, node.l, node.r);
+    return (int)st.size() - 1;
   }
+
+  int build(int k, int s, int e, vector<int>& a) {
+    k = cloneNode(st[k]);
+    if (s + 1 == e) {
+      st[k].v = a[s];
+      return k;
+    }
+    int m = (s + e) >> 1;
+    ls = build(lp, a);
+    rs = build(rp, a);
+    pull(k);
+    return k;
+  }
+ 
   int query(int k, int s, int e, int a, int b) {
-    if (e <= a || b <= s)return NEUT;
-    if (a <= s && e <= b)return st[k];
-    int m = (s + e) / 2;
-    return comb(query(L[k],s,m,a,b),query(R[k],m,e,a,b));
+    if (e <= a || s >= b) {
+      return NEUT;
+    }
+    if (a <= s && e <= b) {
+      return st[k].v;
+    }
+    int m = (s + e) >> 1;
+    return merge(query(lp, a, b), query(rp, a, b));
   }
-  int init(vi &a) { return init(0, n, a); }
-  int upd(int k, int p, int v){return rt=upd(k,0,n,p,v);}
-  int upd(int p, int v){return rt=upd(rt, p, v);}
-  int query(int k, int a, int b){return query(k,0,n,a,b);};
+ 
+  int upd(int k, int s, int e, int i, int v) {
+    k = cloneNode(st[k]);
+    if (s + 1 == e) {
+      st[k].v = v;
+      return k;
+    }
+    int m = (s + e) >> 1;
+    if (i < m) {
+      ls = upd(lp, i, v);
+    } else {
+      rs = upd(rp, i, v);
+    }
+    pull(k);
+    return k;
+  }
+	
+  int build(vector<int>& a) {
+    return lastRoot = build(0, 0, n, a);
+  }
+  int query(int k, int a, int b) {
+    return query(k, 0, n, a, b);
+  }
+  int upd(int k, int i, int v) {
+    return lastRoot = upd(k, 0, n, i, v);
+  }
 };
