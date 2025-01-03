@@ -8,8 +8,8 @@
  */
 
 int binary_search(int l, int r) {
-  while (r - l > 1) {
-    int m = (l + r) / 2;
+  while (l < r) {
+    int m = l + (r - l) >> 1;
     if (f(m)) {
       r = m;
     } else {
