@@ -1,6 +1,6 @@
 /**
- * Descripcion: Algunas operaciones utiles con desplazamiento de bits, si no trabajamos
- * con numeros enteros, usar 1LL o 1ULL, siendo la primer parte
+ * Descripcion: Algunas operaciones utiles con desplazamiento de bits, si no
+ * trabajamos con numeros enteros, usar 1LL o 1ULL, siendo la primer parte
  * operaciones nativas y la segunda del compilador GNU (GCC), si no se
  * trabaja con enteros, agregar ll al final del nombre del metodo
  * Tiempo por operacion: O(1)
@@ -36,4 +36,14 @@
  */
 int MX_MSK = 1 << n;
 for (int i = 0; i < MX_MSK; i++) {
+}
+
+/*
+ * Descripcion: Itera a traves de todas las mascaras y por
+ * cada mascara itera a traves de todas sus submascaras
+ * Tiempo: O(3^n)
+ */
+for (int msk = 0; msk < MX_MSK; msk++) {
+  for (int submsk = msk; submsk; submsk = (submsk - 1) & msk) {
+  }
 }
