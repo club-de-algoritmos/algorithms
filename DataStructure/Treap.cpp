@@ -13,12 +13,12 @@
  */
 
 struct Node {
-	Node *l = 0, *r = 0;
-	int val, y, c = 1;
+  Node *l = 0, *r = 0;
+  int val, y, c = 1;
   int s;
   bool rev;
-	Node(int val) : val(val), y(rand()), s(val), rev(false) {}
-	void recalc();
+  Node(int val) : val(val), y(rand()), s(val), rev(false) {}
+  void recalc();
 };
 
 int sum(Node *n) { return n ? n->s : 0ll; }
@@ -41,45 +41,45 @@ void push(Node* n) {
 }
 
 pair<Node*, Node*> split(Node* n, int k) {
-	if (!n) return {};
+  if (!n) return {};
   push(n);
-	if (cnt(n->l) >= k) { // "n->val >= k" para usar lower_bound(k)
-		auto [L,R] = split(n->l, k);
-		n->l = R;
-		n->recalc();
-		return {L, n};
-	} else {
-		auto [L,R] = split(n->r,k - cnt(n->l) - 1); // y solo "k"
-		n->r = L;
-		n->recalc();
-		return {n, R};
-	}
+  if (cnt(n->l) >= k) { // "n->val >= k" para usar lower_bound(k)
+    auto [L,R] = split(n->l, k);
+    n->l = R;
+    n->recalc();
+    return {L, n};
+  } else {
+    auto [L,R] = split(n->r,k - cnt(n->l) - 1); // y solo "k"
+    n->r = L;
+    n->recalc();
+    return {n, R};
+  }
 }
 
 Node* merge(Node* l, Node* r) {
   push(l);
   push(r);
-	if (!l) return r;
-	if (!r) return l;
-	if (l->y > r->y) {
-		l->r = merge(l->r, r);
-		return l->recalc(), l;
-	} else {
-		r->l = merge(l, r->l);
-		return r->recalc(), r;
-	}
+  if (!l) return r;
+  if (!r) return l;
+  if (l->y > r->y) {
+    l->r = merge(l->r, r);
+    return l->recalc(), l;
+  } else {
+    r->l = merge(l, r->l);
+    return r->recalc(), r;
+  }
 }
 
 Node* ins(Node* t, Node* n, int pos) {
-	auto [l,r] = split(t, pos);
-	return merge(merge(l, n), r);
+  auto [l,r] = split(t, pos);
+  return merge(merge(l, n), r);
 }
 
 void move(Node*& n, int l, int r, int k) {
-	Node *a, *b, *c;
-	tie(a,b) = split(n, l); tie(b,c) = split(b, r - l);
-	if (k <= l) n = merge(ins(a, b, k), c);
-	else n = merge(a, ins(c, b, k - r));
+  Node *a, *b, *c;
+  tie(a,b) = split(n, l); tie(b,c) = split(b, r - l);
+  if (k <= l) n = merge(ins(a, b, k), c);
+  else n = merge(a, ins(c, b, k - r));
 }
 
 void shift(Node*& n, int l, int r) {
