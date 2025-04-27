@@ -5,7 +5,7 @@
  * init y upd retornan la nueva raiz, rt es la ultima raiz
  * Para mejorar velocidad, usar arreglos.
  * Uso: STree st;st.init(arr);
- * vi roots;roots.pb(st.upd(0,3));st.query(roots[1], 0, n);
+ * vi roots;roots.pb(0);roots.pb(st.upd(roots.back(),0,3));st.query(roots[1], 0, n);
  * Tiempo: log(n)
  * Status: testeado en SWERC 2020 - H. Figurines
  */
@@ -22,7 +22,7 @@
     Node(int l, int r, int val) : l(l), r(r), val(val) {}
   };
 
-  int n, root;
+  int n;
   vector<Node> st;
 
   STree(int n) : n(n), st(1, Node(0, 0, NEUT)) {}
@@ -49,6 +49,6 @@
     return query(root, 0, n, l, r);
   }
   int upd(int root, int i, int val) {
-    return root = upd(root, 0, n, i, val);
+    return upd(root, 0, n, i, val);
   }
 };
