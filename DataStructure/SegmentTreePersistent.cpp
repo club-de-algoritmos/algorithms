@@ -9,88 +9,46 @@
  * Tiempo: log(n)
  * Status: testeado en SWERC 2020 - H. Figurines
  */
-struct STree {
-  #define ls st[k].l
-  #define rs st[k].r
-  #define lp ls, s, m
-  #define rp rs, m, e
-  #define NEUT 0
- 
-  struct Node {
-    int v, l, r;
-    Node() : v(NEUT), l(0), r(0) {}
-    Node(int _v, int _l, int _r) {
-      v = _v;
-      l = _l;
-      r = _r;
-    }
-  };
- 
-  int n, lastRoot;
-  vector<Node> st;
- 
-  STree(int n) : n(n), st(1) {}
- 
-  int merge(int x, int y) {
-    return x + y;
-  }
- 
-  void pull(int k) {
-    st[k].v = merge(st[ls].v, st[rs].v);
-  }
- 
-  int cloneNode(Node node) {
-    st.emplace_back(node.v, node.l, node.r);
-    return (int)st.size() - 1;
-  }
 
-  int build(int k, int s, int e, vector<int>& a) {
-    k = cloneNode(st[k]);
-    if (s + 1 == e) {
-      st[k].v = a[s];
-      return k;
-    }
-    int m = (s + e) >> 1;
-    ls = build(lp, a);
-    rs = build(rp, a);
-    pull(k);
-    return k;
+ struct STree {
+  #define ls st[v].l
+  #define rs st[v].r
+  #define lp ls, tl, tm
+  #define rp rs, tm, tr
+  #define NEUT 0
+
+  struct Node {
+    int l, r, val;
+    Node(int l, int r, int val) : l(l), r(r), val(val) {}
+  };
+
+  int n, root;
+  vector<Node> st;
+
+  STree(int n) : n(n), st(1, Node(0, 0, NEUT)) {}
+
+  int query(int v, int tl, int tr, int l, int r) {
+    if (tr <= l || r <= tl) return NEUT;
+    if (l <= tl && tr <= r) return st[v].val;
+    int tm = (tl + tr) / 2;
+    return query(lp, l, r) + query(rp, l, r);
+  }
+  
+  int upd(int v, int tl, int tr, int i, int val) {
+    st.emplace_back(st[v].l, st[v].r, st[v].val);
+    v = int(st.size()) - 1;
+    if (tl + 1 == tr) return st[v].val = val, v;
+    int tm = (tl + tr) / 2;
+    if (i < tm) ls = upd(lp, i, val);
+    else rs = upd(rp, i, val);
+    st[v].val = st[ls].val + st[rs].val;
+    return v;
   }
  
-  int query(int k, int s, int e, int a, int b) {
-    if (e <= a || s >= b) {
-      return NEUT;
-    }
-    if (a <= s && e <= b) {
-      return st[k].v;
-    }
-    int m = (s + e) >> 1;
-    return merge(query(lp, a, b), query(rp, a, b));
+  int query(int root, int l, int r) {
+    return query(root, 0, n, l, r);
   }
- 
-  int upd(int k, int s, int e, int i, int v) {
-    k = cloneNode(st[k]);
-    if (s + 1 == e) {
-      st[k].v = v;
-      return k;
-    }
-    int m = (s + e) >> 1;
-    if (i < m) {
-      ls = upd(lp, i, v);
-    } else {
-      rs = upd(rp, i, v);
-    }
-    pull(k);
-    return k;
-  }
-	
-  int build(vector<int>& a) {
-    return lastRoot = build(0, 0, n, a);
-  }
-  int query(int k, int a, int b) {
-    return query(k, 0, n, a, b);
-  }
-  int upd(int k, int i, int v) {
-    return lastRoot = upd(k, 0, n, i, v);
+  int upd(int root, int i, int val) {
+    return root = upd(root, 0, n, i, val);
   }
 };
