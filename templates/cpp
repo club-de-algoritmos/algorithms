@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+// Pura Gente del Coach Moy
+
+using ll = long long;
+
+#define SZ(x) ((int)(x).size())
+#define FOR(i, a, b) for (int i = (int)a; i < (int)b; ++i)
+
+int main() {
+    cin.tie(0)->sync_with_stdio(0);
+}
