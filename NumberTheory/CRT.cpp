@@ -15,60 +15,38 @@
  * Tiempo para 2 congruencias: O(log n)
  */
 
-ll crt(ll a, ll m, ll b, ll n) {
+int crt(int a, int m, int b, int n) {
   if (n > m) swap(a, b), swap(m, n);
-  ll x, y, g = euclid(m, n, x, y);
-  assert((a - b) % g == 0);  // else no solution
+  int x, y, g = euclid(m, n, x, y);
+  if ((a - b) % g) return NO_SOLUTION;
   x = (b - a) % n * x % n / g * m + a;
   return x < 0 ? x + m * n / g : x;
 }
 
-using pll = pair<ll, ll>;
-class ChineseRemainderTheorem {
-  vector<pll> equations;
+struct CRT {
+  vector<pair<int, int>> equations;
 
-public:
-	void clear() {
-		equations.clear();
-	}
+	void clear() { equations.clear(); }
 
-	void addEquation(ll r, ll m ) {
-		equations.push_back({r, m});
-	}
+	void addEquation(int r, int m) { equations.push_back({r, m}); }
 
-	ll ext_gcd(ll a, ll b, ll &x, ll &y) {
-		if(b == 0) {
-			x = 1; y = 0;
-			return a;
-		}
-		ll ret = ext_gcd(b, a%b, y, x);
-		y -= x*(a / b);
-		return ret;
-	}
+	pair<int, int> solve() {
+		if (equations.empty()) return {-1, -1};
 
-	pll solve() {
-		if (equations.size() == 0) return {-1,-1};
-
-		ll a1 = equations[0].first;
-		ll m1 = equations[0].second;
-		a1 %= m1;
-
+		int m1 = equations[0].second, a1 = equations[0].first % m1;
 		for (int i = 1; i < equations.size(); i++ ) {
-			ll a2 = equations[i].first;
-			ll m2 = equations[i].second;
+			int m2 = equations[i].second, a2 = equations[i].first % m2;
 
-			ll g = __gcd(m1, m2);
-			if (a1 % g != a2 % g) return {-1,-1};
+			int g = gcd(m1, m2);
+			if (a1 % g != a2 % g) return {-1, -1};
 
-			ll p, q;
-			ext_gcd(m1/g, m2/g, p, q);
+			int p, q;
+			euclid(m1/g, m2/g, p, q);
 
-			ll mod = m1 / g * m2;
-			ll x = ( (__int128)a1 * (m2/g) % mod *q % mod + (__int128)a2 * (m1/g) % mod * p % mod ) % mod;
+			int mod = m1 / g * m2;
+			mint<mod> x = mint<mod>(a1)*(m2/g)*q + mint<mod>(a2)*(m1/g)*p;
 
-			a1 = x;
-			if ( a1 < 0 ) a1 += mod;
-			m1 = mod;
+			a1 = x.v, m1 = mod;
 		}
 		return {a1, m1};
 	}

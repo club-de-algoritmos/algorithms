@@ -1,10 +1,10 @@
 /*
  * Descripcion: Calcula el valor de una integral definida
+ * N es el numero de pasos. Mas pasos implica mas precision
  * Tiempo: O(pasos)
  */
 
-const int N = 1000 * 1000;  // numero de pasos (entre mas grande mas preciso)
-
+const int N = 1000 * 1000; 
 double simpson_integration(double a, double b) {
   double h = (b - a) / N;
   double s = f(a) + f(b);

@@ -1,100 +1,40 @@
 /*
- * Descripcion: el logaritmo discreto es un entero x
- * que satisface la ecuacion a**x = b (mod m). Dados
- * los enteros a, b, y m, se busca a x.
- * Este problema se puede resolver con el algoritmo
- * de meet-in-the-middle Baby-step giant-step.
- * Nota. Si hay varios argumentos p que mapean el mismo
- * valor f_1, solo se guarda uno de ellos. Esto funciona
- * porque solo buscamos una posible solucion, pero, si se
- * necesitan todas, se puede cambiar map<int, int> a algo
- * como map<int, vector<int>>. Luego, sigue adaptar el
- * segundo paso de manera correspondiente.
- * Tiempo:
- *  O(\sqrt{N} log n) - metodo 1
- *  O(\sqrt{N}) - metodo 2 (amortizado con unordered_map)
- *  O(\sqrt{N}) - metodo 3, usado cuando a y m no son coprimos
+ * Descripcion: retorna el x mas chico tal que x > 0 y a^x = b (mod m),
+ * o -1 si no existe tal x. discreteLog(a,1,m) puede ser usado para
+ * calcular el orden de a.
+ * Tiempo: O(sqrt(m))
+ *
+ * Detalles: Este algoritmo utiliza el metodo baby-step giant-step para
+ * encontrar (i,j) tal que a^(n * i) = b * a^j (mod m), donde n > sqrt(m)
+ * y 0 < i, j <= n. Si a y m son coprimos entonces a^j tiene inverso modular,
+ * lo que significa que a^(i * n - j) = b (mod m).
+ *
+ * Sin embargo, esta implementación particular del baby-step giant-step funciona incluso
+ * sin suponer que a y m sean coprimos, usando la siguiente idea:
+ *
+ * Supongamos que p^x es un divisor primo de m. Entonces tenemos 3 casos
+ *	 1. b es divisible por p^x
+ *	 2. b es divisible sólo por alguna p^y, 0<y<x
+ *	 3. b no es divisible por p
+ * Lo importante a notar es que en el caso 2, modLog(a,b,m) (si
+ * existe) no puede ser > sqrt(m) (técnicamente no puede ser >= log2(m)).
+ * Así que, una vez comprobados todos los exponentes de a que son <= sqrt(m),
+ * el caso 2 ya no puede darse. El caso 2 es el único caso delicado.
+ *
+ * Por tanto, la modificación que permite entrada no coprima consiste en comprobar todos
+ * los exponentes de a que sean <= n, y después manejar los casos no delicados mediante
+ * una comprobación simple gcd(a^n,m) == gcd(b,m).
  */
 
-int solve(int a, int b, int m) {
-  /* Se asume que 0**0 = 1, si se usan otras convenciones,
-   * manejar caso a = 0 aparte, con
-   * if (a == 0)
-   *     return b == 0 ? 1 : -1;
-   */
-  a %= m, b %= m;
-  int n = sqrt(m) + 1;
-  map<int, int> vals;
-  for (int p = 1; p <= n; ++p) {
-    vals[be(a, p * n, m)] = p;
-  }
-  for (int q = 0; q <= n; ++q) {
-    int cur = be(a, q, m) * 1ll * b % m;
-    if (vals.count(cur)) {
-      int ans = vals[cur] * n - q;
-      return ans;
-    }
-  }
-  return -1;
-}
 
 int solve(int a, int b, int m) {
-  a %= m, b %= m;
-  int n = sqrt(m) + 1;
-
-  int an = 1;
-  for (int i = 0; i < n; ++i) {
-    an = (an * 1ll * a) % m;
-  }
-
-  unordered_map<int, int> vals;
-  for (int q = 0, cur = b; q <= n; ++q) {
-    vals[cur] = q;
-    cur = (cur * 1ll * a) % m;
-  }
-
-  for (int p = 1, cur = 1; p <= n; ++p) {
-    cur = (cur * 1ll * an) % m;
-    if (vals.count(cur)) {
-      int ans = n * p - vals[cur];
-      return ans;
-    }
-  }
-  return -1;
-}
-
-int solve(int a, int b, int m) {
-  a %= m, b %= m;
-  int k = 1, add = 0, g;
-  while ((g = gcd(a, m)) > 1) {
-    if (b == k) {
-      return add;
-    }
-    if (b % g) {
-      return -1;
-    }
-    b /= g, m /= g, ++add;
-    k = (k * 1ll * a / g) % m;
-  }
-
-  int n = sqrt(m) + 1;
-  int an = 1;
-  for (int i = 0; i < n; ++i) {
-    an = (an * 1ll * a) % m;
-  }
-
-  unordered_map<int, int> vals;
-  for (int q = 0, cur = b; q <= n; ++q) {
-    vals[cur] = q;
-    cur = (cur * 1ll * a) % m;
-  }
-
-  for (int p = 1, cur = k; p <= n; ++p) {
-    cur = (cur * 1ll * an) % m;
-    if (vals.count(cur)) {
-      int ans = n * p - vals[cur] + add;
-      return ans;
-    }
-  }
-  return -1;
+	int n = int(sqrt(m)) + 1, e = 1, f = 1, j = 1;
+	unordered_map<ll, ll> A;
+	while (j <= n && (e = f = e * a % m) != b % m)
+		A[e * b % m] = j++;
+	if (e == b % m) return j;
+	if (gcd(m, e) == gcd(m, b)) 
+		for (int i = 2; i <= n + 1; ++i)
+      if (A.count(e = e * f % m)) return n * i - A[e];
+	return -1;
 }

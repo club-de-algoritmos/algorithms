@@ -6,9 +6,9 @@
  * x = x0 + k*(b/g), y = y0 - k*(a/g)
  * Tiempo: O(log n)
  */
-pi linear_diophantine(int a, int b, int n) {
+pair<int, int> linear_diophantine(int a, int b, int n) {
   int x0, y0, g = euclid(a, b, x0, y0);
-  if(n%g)return {-1,-1}; // no solution exists
+  if(n%g) return NO_SOLUTION;
   x0 *= n / g, y0 *= n / g;
   return {x0, y0};
 }
