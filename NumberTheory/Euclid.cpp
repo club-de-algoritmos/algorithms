@@ -9,11 +9,11 @@
  * Tiempo: O(log n)
  */
 
-ll euclid(ll a, ll b, ll &x, ll &y) {
+int euclid(int a, int b, int &x, int &y) {
   if (!b) {
     x = 1, y = 0;
     return a;
   }
-  ll d = euclid(b, a % b, y, x);
+  int d = euclid(b, a % b, y, x);
   return y -= a / b * x, d;
 }

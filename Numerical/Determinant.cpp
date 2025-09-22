@@ -7,37 +7,42 @@
 double det(vector<vector<double>>& a) {
   int n = SZ(a);
   double res = 1;
-  FOR(i, 0, n) {
+  for (int i = 0; i < n; ++i) {
     int b = i;
-    FOR(j, i + 1, n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
+    for (int j = i + 1; j < n; ++j) 
+      if (abs(a[j][i]) > abs(a[b][i]))
+        b = j;
     if (i != b) swap(a[i], a[b]), res *= -1;
     res *= a[i][i];
     if (res == 0) return 0;
-    FOR(j, i + 1, n) {
+    for (int j = i + 1; j < n; ++j) {
       double v = a[j][i] / a[i][i];
-      if (v != 0) FOR(k, i + 1, n) a[j][k] -= v * a[i][k];
+      if (v != 0)
+        for (int k = i + 1; k < n; ++k)
+          a[j][k] -= v * a[i][k];
     }
   }
   return res;
 }
 
-// Determinante con modulo
-// Si se elimina el modulo obtendras la version de solo enteros
-ll detMod(vector<vector<ll>>& a, int mod) {
-  int n = SZ(a);
-  ll ans = 1;
-  FOR(i, 0, n) {
-    FOR(j, i + 1, n) {
+// Determinante con modulo.
+// Sin el mod se obtiene la version de solo enteros.
+mint detMod(vector<vector<mint>>& a) {
+  int n = int(a.size());
+  mint ans = 1;
+  for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
       while (a[j][i] != 0) {
         ll t = a[i][i] / a[j][i];
-        if (t) FOR(k, i, n)
-        a[i][k] = (a[i][k] - a[j][k] * t) % mod;
+        if (t) 
+          for (int k = i; k < n; ++k)
+            a[i][k] -= a[j][k] * t;
         swap(a[i], a[j]);
         ans *= -1;
       }
     }
-    ans = ans * a[i][i] % mod;
-    if (!ans) return 0;
+    ans *= a[i][i];
+    if (!ans.v) return 0;
   }
-  return (ans + mod) % mod;
+  return ans;
 }
