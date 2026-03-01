@@ -1,63 +1,31 @@
 /*
- * Descripcion: calcula el XOR basis para un conjunto de numeros.
- * Cada elemento en el basis tiene su bit significativo diferente.
- * El elemento con el i-esimo bit activado se guarda
- * en basis[i] (si existe)
- * El numero de elementos distintos se calcula con (1ll << sz)
- * Tiempo: O(D)
+ * Descripcion: calcula el XOR basis en Row Echelon Form.
+ * El K-esimo menor elemento (0-indexed) es el mapeo 
+ * binario de K a los elementos del basis.
+ * Si no se requiere getKth(), se puede omitir el segundo for 
+ * dentro de insert() y la insercion lineal, cambiandolo
+ * simplemente por un `basis.pb(x)`.
+ * Los elementos se mantienen ordenados descendentemente.
+ * Tiempo: O(D), donde D es el numero de bits del maximo valor.
  */
-const int D = 60;
 struct XorBasis {
-  ll basis[D];
-  int sz = 0;
+  vector<int> basis;
 
-  void insert(ll k) {
-    for (int i = D - 1; i >= 0; i--) {
-      if (!(k >> i & 1)) continue;
-      if (!basis[i]) {
-        basis[i] = k;
-        sz++;
-        return;
-      }
-      k ^= basis[i];
-    }
+  void insert(int x) {
+    for (int b : basis) x = min(x, x ^ b);
+    if (!x) return;
+    
+    for (int& b : basis) b = min(b, b ^ x);
+    basis.insert(lower_bound(ALL(basis), x, greater<>()), x);
   }
 
-  // k-th smallest
-  ll get_kth(ll k) {
-    ll x = 0;
-    int pref = sz;
-    for (ll i = D - 1; i >= 0; i--) {
-      if (!basis[i]) continue;
-      ll p2 = 1ll << (pref - 1);
-      ll mini_leq = 1;
-      ll maxi_leq = p2;
-      if (!(x >> i & 1)) mini_leq += p2, maxi_leq += p2;
-      if (mini_leq <= k && maxi_leq >= k) {
-        if (!(x >> i & 1)) k -= p2;
+  int getKth(int k) {
+    int x = 0;
+    for (int i = 0; i < SZ(basis); i++) {
+      if ((k >> (SZ(basis) - 1 - i)) & 1) {
         x ^= basis[i];
-      } else if (x >> i & 1)
-        k -= p2;
-      pref--;
+      }
     }
     return x;
-  }
-
-  // Checa si se puede formar el valor K
-  bool check(ll k) {
-    for (int i = D - 1; i >= 0; i--) {
-      if (!(k >> i & 1)) continue;
-      if (!basis[i]) {
-        return false;
-      }
-      k ^= basis[i];
-    }
-    return true;
-  }
-
-  void merge(const XorBasis &other) { FOR(i, 0, D) insert(other.basis[i]); }
-  void merge(const XorBasis &a, const XorBasis &b) {
-    *this = a;
-    merge(b);
   }
 };
