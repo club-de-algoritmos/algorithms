@@ -3,28 +3,32 @@
  * bajo un modulo sin complicaciones
  * Para calcular el inverso, se asume que MOD
  * es primo (si no, usar gcd extendido)
+ * Nota: Si se requiere instanciar para multiples MODs,
+ * cambiar a `template<int MOD> struct mint { ...` 
+ * y en las inicializaciones usar `mi<MOD>` o `modint`.
  * Ejemplos de uso:
- *   modint res = a * b * c * d; 
- *   res += modint(x) * x * a[j] * a[j] * (r - l);
+ *   mint res = a * b * c * d; 
+ *   res += mint(x) * x * a[j] * a[j] * (r - l);
  * Tiempo: O(1)
  */
-template<int MOD> struct mi {
+const int MOD = 998244353;
+
+struct mint {
   int v; 
-  mi():v(0) {}
-  mi(ll _v):v(int(_v%MOD)) { v += (v<0)*MOD; }
-  mi& operator+=(mi o) { 
+  mint():v(0) {}
+  mint(ll _v):v(int(_v%MOD)) { v += (v<0)*MOD; }
+  mint& operator+=(mint o) { 
     if ((v += o.v) >= MOD) v -= MOD; 
     return *this; }
-  mi& operator-=(mi o) { 
+  mint& operator-=(mint o) { 
     if ((v -= o.v) < 0) v += MOD; 
     return *this; }
-  mi& operator*=(mi o) { 
+  mint& operator*=(mint o) { 
     v = int((ll)v*o.v%MOD); return *this; }
-  friend mi be(mi a, ll p) { assert(p >= 0);
+  friend mint be(mint a, ll p) { assert(p >= 0);
     return p==0?1:be(a*a,p/2)*(p&1?a:1); }
-  friend mi inv(mi a) { assert(a.v != 0); return be(a,MOD-2); }
-  friend mi operator+(mi a, mi b) { return a += b; }
-  friend mi operator-(mi a, mi b) { return a -= b; }
-  friend mi operator*(mi a, mi b) { return a *= b; }
+  friend mint inv(mint a) { assert(a.v != 0); return be(a,MOD-2); }
+  friend mint operator+(mint a, mint b) { return a += b; }
+  friend mint operator-(mint a, mint b) { return a -= b; }
+  friend mint operator*(mint a, mint b) { return a *= b; }
 };
-using modint = mi<998244353>;
