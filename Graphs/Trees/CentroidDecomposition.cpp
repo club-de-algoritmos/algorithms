@@ -1,41 +1,40 @@
 /**
- * Descripcion: cuando se trabaja con caminos en
- * un arbol, es util descomponer a este recursivamente
- * en sub-arboles formados al eliminar su centroide, el
- * centroide de un arbol es un nodo u tal que si lo
- * eliminas, este se divide en sub-arboles con un numero
- * de nodosno mayor a la mitad del original, todos los
- * arboles tienen un centroide, y a lo mas 2. Esto provoca
- * que el arbol sea dividido en sub-arboles de distintos
- * niveles de descomposicion, por comodidad, un nodo v es
- * un centroide ancestro de otro nodo u, si v, en algun
- * nivel, fue el centroide que separo al componente de
- * u en sub-arboles. Todo camino del arbol original se puede
- * expresar como la concatenacion de dos caminos del tipo:
-	(u, A(u)), (u, A(A(u))), (u, A(A(A(u))))..., etc.
- * Ya que en cada nivel k el numero de nodos de algun
- * componente es a lo mas |V| / 2^k, un nodo puede estar en
- * log |V| componentes, es decir, puede tener como maximo 
- * log |V| ancestros en el arbol de centroides.
- * 
- * Tiempo: O(|V| log |V|)
- * Status: tested on Codeforces 321C
+ * Descripcion: descompone un arbol recursivamente 
+ * eliminando su centroide, formando el "Arbol de Centroides" (CD).
+ * Propiedades clave del CD:
+ *   1. Su altura maxima es log(V).
+ *   2. Para cualquier par de nodos (u, v) en el arbol original, 
+ *      el LCA(u, v) en el CD es un nodo en el camino de u a v.
+ * `fat[u]` guarda el padre de `u` en el CD (-1 si es la raiz).
+ * (Tip: Usar vector<basic_string<int>> en lugar de vector<vector<int>> 
+ * para la lista de adyacencia puede mejorar los tiempos por SSO).
+ * Tiempo: O(V log V)
+ * Status: testeado en Codeforces 321C
  */
-int n;
-bool tk[maxn];
-int szt[maxn], fat[maxn];
-vi g[maxn];
-int calcsz(int u, int f){
-	szt[u]=1;
-	for(auto v:g[u])if(v!=f&&!tk[v])szt[u]+=calcsz(v,u);
-	return szt[u];
-}
-void cdfs(int x=0, int f=-1, int sz=-1){ // O(nlogn)
-	if(sz<0)sz=calcsz(x,-1);
-	for(auto v:g[x])if(!tk[v]&&szt[v]*2>=sz){
-		szt[x]=0;cdfs(v,f,sz);return;
-	}
-	tk[x]=true;fat[x]=f;
-	for(auto v:g[x])if(!tk[v])cdfs(v,x);
-}
-void decompose(){memset(tk,false,sizeof(tk));cdfs();}
+struct CD {
+  int n;
+  vector<vector<int>> adj;
+  vector<int> sz, fat;
+  vector<bool> tk;
+
+  CD(const vector<vector<int>>& adj) : n(SZ(adj)), adj(adj), sz(n), fat(n, -1), tk(n, false) {
+    decompose(0, getSz(0, -1));
+  }
+
+  int getSz(int u, int p) {
+    sz[u] = 1;
+    for (int v : adj[u]) if (v != p && !tk[v]) sz[u] += getSz(v, u);
+    return sz[u];
+  }
+
+  void decompose(int u, int globalSz, int p = -1) {
+    for (int v : adj[u]) if (!tk[v] && 2 * sz[v] >= globalSz) {
+      sz[u] = 0;
+      decompose(v, globalSz, p);
+      return;
+    }
+    tk[u] = true;
+    fat[u] = p;
+    for (int v : adj[u]) if (!tk[v]) decompose(v, getSz(v, -1), u);
+  }
+};
