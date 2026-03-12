@@ -57,7 +57,10 @@ struct Point {
   T dot(Point p) { return x * p.x + y * p.y; }
   T cross(Point p) const { return x * p.y - y * p.x; }
   T cross(Point a, Point b) const { return (a - *this).cross(b - *this); }
-  double angle() const { return atan2(y, x); }
+  T angle() const {
+    T ang = atan2(y, x);
+    return ang < 0 ? ang + 2 * PI : ang;
+  }
 
   friend ostream& operator<<(ostream& os, Point p) {
     return os << "(" << p.x << "," << p.y << ")";
