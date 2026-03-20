@@ -1,12 +1,6 @@
 /**
- * Descripcion: Algoritmo de Flujo Máximo.
- * Uso:
- * Dinic dinic(N); dinic.addEdge(u, v, cap);
- * ll flujo = dinic.calc(s, t);
- * Tiempo: O(VE \log U) usando "capacity scaling" con U = max(cap).
- *         O(V^2 E) clásico sin iterar L.
- *         O(\min(E^{1/2}, V^{2/3})E) para redes unitarias,
- *         y O(E\sqrt{V}) para matching bipartito.
+ * Descripcion: algoritmo para calcular el flujo maximo en un grafo
+ * Tiempo: O(V^2 E)
  */
 
 struct Dinic {
