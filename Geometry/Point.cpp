@@ -4,9 +4,23 @@ constexpr double PI = acos(-1.0);
 inline double DEG_to_RAD(double d) { return (d * PI / 180.0); }
 inline double RAD_to_DEG(double r) { return (r * 180.0 / PI); }
 
-typedef double T;
+using T = double;
 
-int sgn(T x) { return (T(0) < x) - (x < T(0)); }
+int sgn(T x) {
+  if (x < -EPS) return -1;
+  if (x > EPS) return 1;
+  return 0;
+}
+// Operaciones de comparacion para punto flotante
+// Usar estas funciones en lugar de <, <=, >, >=, ==
+// cuando trabajes con doubles y tal operacion te afecta
+// el flujo del programa.
+// Para respuestas max, min son suficientes
+bool less(T a, T b) { return sgn(a - b) < 0; }
+bool lessEqual(T a, T b) { return sgn(a - b) <= 0; }
+bool greater(T a, T b) { return sgn(a - b) > 0; }
+bool greaterEqual(T a, T b) { return sgn(a - b) >= 0; }
+bool equal(T a, T b) { return sgn(a - b) == 0; }
 
 struct Point {
   T x, y;
@@ -21,8 +35,8 @@ struct Point {
   Point operator/(T d) const { return {x / d, y / d}; }  // Solo para punto flotante
 
   // Operaciones de comparacion para punto flotante
-  bool operator<(Point p) const { return x < p.x - EPS || (abs(x - p.x) <= EPS && y < p.y - EPS); }
-  bool operator==(Point p) const { return abs(x - p.x) <= EPS && abs(y - p.y) <= EPS; }
+  bool operator<(Point p) const { return less(x, p.x) || (equal(x, p.x) && less(y, p.y)); }
+  bool operator==(Point p) const { return equal(x, p.x) && equal(y, p.y); }
   bool operator!=(Point p) const { return !(*this == p); }
 
   // Operaciones de comparacion para enteros
@@ -43,7 +57,10 @@ struct Point {
   T dot(Point p) { return x * p.x + y * p.y; }
   T cross(Point p) const { return x * p.y - y * p.x; }
   T cross(Point a, Point b) const { return (a - *this).cross(b - *this); }
-  double angle() const { return atan2(y, x); }
+  T angle() const {
+    T ang = atan2(y, x);
+    return ang < 0 ? ang + 2 * PI : ang;
+  }
 
   friend ostream& operator<<(ostream& os, Point p) {
     return os << "(" << p.x << "," << p.y << ")";
@@ -52,11 +69,11 @@ struct Point {
 
 // Vector: p2-p1
 double dist(Point p1, Point p2) { return hypot(p1.x - p2.x, p1.y - p2.y); }
-bool isPerp(Point v, Point w) { return v.dot(w) == 0; }
+bool isPerp(Point v, Point w) { return equal(v.dot(w), 0); }
 //-1 -> left / 0 -> collinear / +1 -> right
 T orient(Point a, Point b, Point c) { return a.cross(b, c); }
-bool cw(Point a, Point b, Point c) { return orient(a, b, c) < EPS; }
-bool ccw(Point a, Point b, Point c) { return orient(a, b, c) > -EPS; }
+bool cw(Point a, Point b, Point c) { return less(orient(a, b, c), 0); }
+bool ccw(Point a, Point b, Point c) { return greater(orient(a, b, c), 0); }
 
 // ANGULOS
 // Para c++17

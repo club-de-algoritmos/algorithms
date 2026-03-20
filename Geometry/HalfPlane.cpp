@@ -8,7 +8,6 @@
  */
 
 typedef double T;
-const double EPS = 1e-9;
 const double INF = 1e9;
 
 struct HalfPlane {
@@ -17,10 +16,10 @@ struct HalfPlane {
   HalfPlane() {}
   HalfPlane(Point _p, Point _q)
       : p(_p), pq(_q - _p), angle(atan2(pq.y, pq.x)) {}
-  bool operator<(HalfPlane b) const { return angle < b.angle; }
-  bool out(Point q) { return pq.cross(q - p) < EPS; }
+  bool operator<(HalfPlane b) const { return less(angle, b.angle); }
+  bool out(Point q) { return lessEqual(pq.cross(q - p), 0); }
   Point intersect(HalfPlane l) {
-    if (abs(pq.cross(l.pq)) < EPS) return Point{INF, INF};
+    if (equal(pq.cross(l.pq), 0)) return Point{INF, INF};
     return l.p + l.pq * ((p - l.p).cross(pq) / l.pq.cross(pq));
   }
 };
@@ -36,8 +35,8 @@ vector<Point> intersect(vector<HalfPlane> b) {
     while (q < h && b[i].out(c[h].intersect(c[h - 1]))) h--;
     while (q < h && b[i].out(c[q].intersect(c[q + 1]))) q++;
     c[++h] = b[i];
-    if (q < h && abs(c[h].pq.cross(c[h - 1].pq)) < EPS) {
-      if (c[h].pq.dot(c[h - 1].pq) <= 0) return {};
+    if (q < h && equal(c[h].pq.cross(c[h - 1].pq), 0)) {
+      if (lessEqual(c[h].pq.dot(c[h - 1].pq), 0)) return {};
       h--;
       if (b[i].out(c[h].p)) c[h] = b[i];
     }
