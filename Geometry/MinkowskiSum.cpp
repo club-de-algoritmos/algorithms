@@ -6,7 +6,7 @@
  */
 
 void reorder(vector<Point>& p) {
-  if (orient(p[0], p[1], p[2]) < -EPS) reverse(ALL(p));
+  if (less(orient(p[0], p[1], p[2]), 0)) reverse(ALL(p));
   int pos = 0;
   FOR(i, 1, SZ(p))
   if (Point{p[i].y, p[i].x} < Point{p[pos].y, p[pos].x}) pos = i;
@@ -27,8 +27,8 @@ vector<Point> minkowski_sum(vector<Point> p, vector<Point> q) {
   while (i + 2 < SZ(p) || j + 2 < SZ(q)) {
     r.pb(p[i] + q[j]);
     auto cross = (p[i + 1] - p[i]).cross(q[j + 1] - q[j]);
-    i += cross >= -EPS;
-    j += cross <= EPS;
+    i += greaterEqual(cross, 0);
+    j += lessEqual(cross, 0);
   }
   return r;
 }
