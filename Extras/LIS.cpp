@@ -1,40 +1,20 @@
 /**
- * Descripcion: algoritmo para resolver el problema de la
- * subsecuencia creciente mas larga de un arreglo (LIS) a
- * partir de una estrategia de divide y venceras. Si no
- * es necesario recuperar la subsecuencia, ignorar p.
+ * Descripcion: longitud de la subsecuencia estrictamente creciente
+ * mas larga (LIS). d[k] es el menor valor en el que puede terminar
+ * una subsecuencia creciente de longitud k + 1.
+ * Para no decreciente usar upper_bound en vez de lower_bound.
+ * Reconstruccion: guardar p[i] = posicion donde se coloco a[i] en d.
+ * Recorrer de derecha a izquierda tomando el primer i con p[i] = k,
+ * luego el primero con p[i] = k - 1 y a[i] < ultimo tomado, etc.
  * Tiempo: O(n log n)
  */
 
-void getPath(int i, vector<int>& p, vector<int>& path) {
-  if (p[i] != -1) {
-    getPath(p[i], p, path);
+int lis(const vi& a) {
+  vi d;
+  for (int x : a) {
+    auto it = lower_bound(ALL(d), x);
+    if (it == end(d)) d.pb(x);
+    else *it = x;
   }
-  path.push_back(i);
-}
-vector<int> getPath(int lisEnd, vector<int>& p) {
-  vector<int> path;
-  getPath(lisEnd, p, path);
-  return path;
-} 
-
-int solveLIS(vector<int>& a) {
-  int n = (int)a.size();
-
-  vector<int> l(n), lId(n), p(n, -1);
-  int lisSz = 0, lisEnd = 0;
-
-  for (int i = 0; i < n; i++) {
-    int pos = lower_bound(l.begin(), l.begin() + lisSz, a[i]) - l.begin();
-    l[pos] = a[i];
-    lId[pos] = i;
-
-    p[i] = pos ? lId[pos - 1] : -1;
-
-    if (pos == lisSz) {
-      lisSz = pos + 1;
-      lisEnd = i;
-    }
-  }
-  return lisSz;
+  return SZ(d);
 }
