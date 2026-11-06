@@ -1,50 +1,31 @@
 /**
- * Descripcion: Algoritmo rapido para maximo emparejamiento bipartito.
- * el grafo g debe de ser una lista de los vecinos de la particion
- * izquierda y m el numero de nodos en la particion derecha.
- * Retorna (Numero de emparejamientos, btoa[]) donde btoa[i] sera el
- * emparejamiento para el vertice i del lado derecho o -1 si no lo tiene
- * Tiempo: O(sqrt(V)E)
+ * Descripcion: Algoritmo de Hopcroft-Karp para maximo emparejamiento bipartito.
+ * El grafo g contiene los vecinos de la particion izquierda.
+ * r debe inicializarse con tamano m (particion derecha) lleno de -1.
+ * Retorna el tamano del matching y r[v] almacena el nodo izquierdo asignado (-1 si ninguno).
+ * Uso:
+ * vi r(m, -1);
+ * int matching = hopcroftKarp(g, r);
+ * Tiempo: O(E\sqrt{V})
  */
-pair<int, vi> hopcroftKarp(vector<vi>& g, int m) {
-  int res = 0;
-  vi btoa(m, -1), A(SZ(g)), B(m), cur, next;
-  auto dfs = [&](auto self, int a, int L) -> bool {
-    if (A[a] != L) return 0;
-    A[a] = -1;
-    for (int b : g[a]) if (B[b] == L + 1) {
-      B[b] = 0;
-      if (btoa[b] == -1 || self(self, btoa[b], L + 1)) return btoa[b] = a, 1;
-    }
+
+int hopcroftKarp(vector<vi>& g, vi& r) {
+  int n = SZ(g), res = 0;
+  vi l(n, -1), q(n), d(n);
+  auto dfs = [&](auto f, int u) -> bool {
+    int t = exchange(d[u], 0) + 1;
+    for (int v : g[u])
+      if (r[v] == -1 || (d[r[v]] == t && f(f, r[v])))
+        return l[u] = v, r[v] = u, 1;
     return 0;
   };
-  while (1) {
-    fill(ALL(A), 0);
-    fill(ALL(B), 0);
-    /// Encuentra los nodos restantes para BFS (i.e. con layer 0)
-    cur.clear();
-    for (int a : btoa) if(a != -1) A[a] = -1;
-    FOR (a, 0, SZ(g)) if(A[a] == 0) cur.pb(a);
-    /// Encunetra todas las layers usando BFS
-    for (int lay = 1;; lay++) {
-      bool islast = 0;
-      next.clear();
-      for (int a : cur) for (int b : g[a]) {
-        if (btoa[b] == -1) {
-          B[b] = lay;
-          islast = 1;
-        }
-        else if (btoa[b] != a && !B[b]) {
-          B[b] = lay;
-          next.pb(btoa[b]);
-        }
-      }
-      if (islast) break;
-      if (next.empty()) return {res, btoa};
-      for (int a : next) A[a] = lay;
-      cur.swap(next);
+  for (int t = 0, f = 0;; t = f = 0, d.assign(n, 0)) {
+    FOR (i, 0, n) if (l[i] == -1) q[t++] = i, d[i] = 1;
+    FOR (i, 0, t) for (int v : g[q[i]]) {
+      if (r[v] == -1) f = 1;
+      else if (!d[r[v]]) d[r[v]] = d[q[i]] + 1, q[t++] = r[v];
     }
-    /// Usa DFS para escanear caminos aumentantes
-    FOR (a, 0, SZ(g)) res += dfs(dfs, a, 0);
+    if (!f) return res;
+    FOR (i, 0, n) if (l[i] == -1) res += dfs(dfs, i);
   }
 }
