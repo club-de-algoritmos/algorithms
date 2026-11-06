@@ -1,18 +1,18 @@
 /**
- * Descripcion: segment tree para suma en rango y
- * actualizacion en punto. Rangos no inclusivos a la der.
- * Tiempo: O(log n)
- * Status: testeado en CSES Pizzeria Queries
+ * Descripcion: Segment tree para suma en rango y
+ * actualizacion en punto. Rangos semiabiertos [l, r).
+ * Uso:
+ * STree st(n);
+ * st.upd(i, val);
+ * int sum = st.query(l, r);
+ * Tiempo: O(\log n)
  */
-struct STree {
-  #define ls 2 * v + 1
-  #define rs 2 * v + 2
-  #define lp ls, tl, tm
-  #define rp rs, tm, tr
-  #define NEUT 0
 
+#define NEUT 0
+
+struct STree {
   int n;
-  vector<int> st;
+  vi st;
 
   STree(int n) : n(n), st(4 * n) {}
 
@@ -20,21 +20,17 @@ struct STree {
     if (tr <= l || r <= tl) return NEUT;
     if (l <= tl && tr <= r) return st[v];
     int tm = (tl + tr) / 2;
-    return query(lp, l, r) + query(rp, l, r);
+    return query(2 * v + 1, tl, tm, l, r) +
+           query(2 * v + 2, tm, tr, l, r);
   }
-  
+  int query(int l, int r) { return query(0, 0, n, l, r); }
+
   void upd(int v, int tl, int tr, int i, int val) {
     if (tl + 1 == tr) { st[v] = val; return; }
     int tm = (tl + tr) / 2;
-    if (i < tm) upd(lp, i, val);
-    else upd(rp, i, val);
-    st[v] = st[ls] + st[rs];
+    if (i < tm) upd(2 * v + 1, tl, tm, i, val);
+    else upd(2 * v + 2, tm, tr, i, val);
+    st[v] = st[2 * v + 1] + st[2 * v + 2];
   }
- 
-  int query(int l, int r) {
-    return query(0, 0, n, l, r);
-  }
-  void upd(int i, int val) {
-    upd(0, 0, n, i, val);
-  }
+  void upd(int i, int val) { upd(0, 0, n, i, val); }
 };
