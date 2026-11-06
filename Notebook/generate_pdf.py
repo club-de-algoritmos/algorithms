@@ -34,8 +34,9 @@ def get_sections():
 
 
 def get_style(filename):
-    ext = filename.lower().split(".")[-1]
-    if ext in ["c", "cc", "cpp"]:
+    basename = filename.lower().split("/")[-1]
+    ext = basename.split(".")[-1]
+    if ext in ["c", "cc", "cpp"] or basename == "cpp":
         return "cpp"
     elif ext in ["java"]:
         return "java"
@@ -104,8 +105,21 @@ if __name__ == "__main__":
     tex = get_tex(sections)
     with open("contents.tex", "w") as f:
         f.write(tex)
-    latexmk_options = ["latexmk", "-pdf", "notebook.tex"]
-    subprocess.call(latexmk_options)
+    env = os.environ.copy()
+    if os.path.exists("/Library/TeX/texbin"):
+        env["PATH"] = "/Library/TeX/texbin:" + env.get("PATH", "")
+
+    latexmk_bin = shutil.which("latexmk", path=env["PATH"])
+    success = False
+    if latexmk_bin:
+        ret = subprocess.call([latexmk_bin, "-pdf", "notebook.tex"], env=env)
+        success = (ret == 0)
+
+    if not success:
+        pdflatex_bin = shutil.which("pdflatex", path=env["PATH"]) or "pdflatex"
+        print("Compilando con pdflatex...")
+        subprocess.call([pdflatex_bin, "-interaction=nonstopmode", "notebook.tex"], env=env)
+        subprocess.call([pdflatex_bin, "-interaction=nonstopmode", "notebook.tex"], env=env)
     remove_files = [
         "notebook.fls",
         "notebook.aux",

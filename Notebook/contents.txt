@@ -1,36 +1,40 @@
 # Contenido
 
-[Templates]
-Templates/templatecpp.cpp	Template C++
-Templates/templatemax.cpp	Template Max
-Templates/templatepy.py	Template Python
+[templates]
+templates/cpp	Template C++
+templates/StressTest.sh	Stress Test
 
 [DataStructure]
 DataStructure/DSURollback.cpp	DSU Rollback
+DataStructure/DynamicLiChaoTree.cpp	Dynamic Li Chao Tree
 DataStructure/FenwickTree.cpp	Fenwick Tree
 DataStructure/FenwickTree2D.cpp	Fenwick Tree 2D
 DataStructure/Fraction.cpp	Fraction
+DataStructure/LiChaoTree.cpp	Li Chao Tree
 DataStructure/LineContainer.cpp	Line Container
 DataStructure/Matrix.cpp	Matrix
 DataStructure/MoQueries.cpp	Mo Queries
 DataStructure/OrderStatisticsTree.cpp	Order Statistics Tree
 DataStructure/SegmentTree.cpp	Segment Tree
 DataStructure/SegmentTree2D.cpp	Segment Tree 2D
+DataStructure/SegmentTreeIterative.cpp	Segment Tree Iterative
 DataStructure/SegmentTreeLazy.cpp	Segment Tree Lazy
 DataStructure/SegmentTreePersistent.cpp	Segment Tree Persistent
 DataStructure/SegmentTreeSparse.cpp	Segment Tree Sparse
 DataStructure/SparseTable.cpp	Sparse Table
+DataStructure/SparseTableLinear.cpp	Sparse Table Linear
 DataStructure/SubMatrix.cpp	Sub Matrix
+DataStructure/Treap.cpp	Treap
 
 [NumberTheory]
 NumberTheory/CRT.cpp	CRT
+NumberTheory/DiscreteLog.cpp	Discrete Log
 NumberTheory/Euclid.cpp	Euclid
 NumberTheory/LinearDiophantine.cpp	Linear Diophantine
-NumberTheory/LinearSieve.cpp	Linear Sieve
-NumberTheory/Mobius.cpp	Mobius
-NumberTheory/ModInverse.cpp	Mod Inverse
-NumberTheory/ModMultiplication.cpp	Mod Multiplication
-NumberTheory/ModPow.cpp	Mod Pow
+NumberTheory/ModInverses.cpp	Mod Inverses
+NumberTheory/Modint.cpp	Modint
+NumberTheory/MultiplicativeFunctions.cpp	Multiplicative Functions
+NumberTheory/PrimitiveRoot.cpp	Primitive Root
 NumberTheory/Sieve.cpp	Sieve
 
 [Combinatorial]
@@ -43,18 +47,13 @@ Numerical/FFT.cpp	FFT
 Numerical/Gauss.cpp	Gauss
 Numerical/Simplex.cpp	Simplex
 Numerical/Simpson.cpp	Simpson
-
-[DP]
-DP/DequeTecnique.cpp	Deque Tecnique
-DP/Digit.cpp	Digit
-DP/Knapsack.cpp	Knapsack
-DP/LIS.cpp	LIS
-DP/MonotonicStack.cpp	Monotonic Stack
-DP/TSP.cpp	TSP
+Numerical/XorBasis.cpp	Xor Basis
 
 [Graphs]
 Graphs/Connectivity/2SAT.cpp	2SAT
+Graphs/Connectivity/BiconnectedComponents.cpp	Biconnected Components
 Graphs/Connectivity/BridgesAndArticulationPoints.cpp	Bridges And Articulation Points
+Graphs/Connectivity/DominatorTree.cpp	Dominator Tree
 Graphs/Connectivity/MaximalCliques.cpp	Maximal Cliques
 Graphs/Connectivity/MaximumClique.cpp	Maximum Clique
 Graphs/Connectivity/SCC.cpp	SCC
@@ -63,21 +62,21 @@ Graphs/Matching/HopcroftKarp.cpp	Hopcroft Karp
 Graphs/Matching/Hungarian.cpp	Hungarian
 Graphs/Matching/Kuhn.cpp	Kuhn
 Graphs/Matching/MinimumVertexCover.cpp	Minimum Vertex Cover
+Graphs/MinimumSpanningTree/DirectedMST.cpp	Directed MST
 Graphs/MinimumSpanningTree/Kruskal.cpp	Kruskal
 Graphs/MinimumSpanningTree/Prim.cpp	Prim
 Graphs/Misc/Hierholzer.cpp	Hierholzer
 Graphs/Misc/TopologicalSort.cpp	Topological Sort
 Graphs/NetworkFlow/Dinic.cpp	Dinic
-Graphs/NetworkFlow/Johnson.cpp	Johnson
 Graphs/NetworkFlow/MinCostMaxFlow.cpp	Min Cost Max Flow
 Graphs/NetworkFlow/PushRelabel.cpp	Push Relabel
 Graphs/ShortestPaths/Bellman-Ford.cpp	Bellman-Ford
 Graphs/ShortestPaths/Dijkstra.cpp	Dijkstra
 Graphs/ShortestPaths/Floyd-Warshall.cpp	Floyd-Warshall
-Graphs/Trees/BinaryLiftingLCA.cpp	Binary Lifting LCA
 Graphs/Trees/CentroidDecomposition.cpp	Centroid Decomposition
 Graphs/Trees/EulerTour.cpp	Euler Tour
 Graphs/Trees/HLD.cpp	HLD
+Graphs/Trees/LCA.cpp	LCA
 
 [Strings]
 Strings/AhoCorasick.cpp	Aho Corasick
@@ -96,22 +95,28 @@ Strings/Trie.cpp	Trie
 Strings/ZAlgorithm.cpp	ZAlgorithm
 
 [Geometry]
+Geometry/3D/Coords.cpp	Coords
+Geometry/3D/Hull3D.cpp	Hull3D
+Geometry/3D/Line3D.cpp	Line3D
+Geometry/3D/Plane.cpp	Plane
+Geometry/3D/Point3D.cpp	Point3D
+Geometry/3D/Polyhedron.cpp	Polyhedron
+Geometry/3D/Sphere.cpp	Sphere
 Geometry/Circle.cpp	Circle
 Geometry/ClosestPair.cpp	Closest Pair
 Geometry/ConvexHull.cpp	Convex Hull
 Geometry/HalfPlane.cpp	Half Plane
 Geometry/Line.cpp	Line
+Geometry/MinimumEnclosingCircle.cpp	Minimum Enclosing Circle
+Geometry/MinkowskiSum.cpp	Minkowski Sum
 Geometry/Point.cpp	Point
-Geometry/Point3D.cpp	Point3D
 Geometry/PolarSort.cpp	Polar Sort
 Geometry/Polygon.cpp	Polygon
 Geometry/Segment.cpp	Segment
 
 [Extras]
-Extras/Bits.cpp	Bits
-Extras/Busquedas.cpp	Busquedas
+Extras/CustomHash.cpp	Custom Hash
 Extras/Dates.cpp	Dates
-Extras/HashPair.cpp	Hash Pair
+Extras/IterateSubmasks.cpp	Iterate Submasks
+Extras/LIS.cpp	LIS
 Extras/Random.cpp	Random
-Extras/Trucos.cpp	Trucos
-Extras/int128.cpp	int128
