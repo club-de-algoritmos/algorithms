@@ -9,10 +9,12 @@
  * Tiempo: O(nm) construccion, O(\log n \log m) consulta y actualizacion
  */
 
+#define NEUT 0
+
 struct STree {
   int n, m;
   vector<vi> st;
-  STree(int n, int m) : n(n), m(m), st(2 * n, vi(2 * m, 0)) {}
+  STree(int n, int m) : n(n), m(m), st(2 * n, vi(2 * m, NEUT)) {}
   int comb(int x, int y) { return x + y; }
   void build(vector<vi>& a) {
     FOR (i, 0, n) FOR (j, 0, m)
@@ -29,7 +31,7 @@ struct STree {
       st[i >> 1][j] = comb(st[i][j], st[i ^ 1][j]);
   }
   int query(int x0, int y0, int x1, int y1) {
-    int r = 0;
+    int r = NEUT;
     for (int i0 = x0 + n, i1 = x1 + n; i0 < i1; i0 >>= 1, i1 >>= 1) {
       int t[4], q = 0;
       if (i0 & 1) t[q++] = i0++;
