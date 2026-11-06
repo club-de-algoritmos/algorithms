@@ -8,6 +8,8 @@
  * Tiempo: O(\log n)
  */
 
+#define NEUT 0
+
 struct STree {
   int n;
   vi st;
@@ -15,7 +17,7 @@ struct STree {
   STree(int n) : n(n), st(4 * n) {}
 
   int query(int v, int tl, int tr, int l, int r) {
-    if (tr <= l || r <= tl) return 0;
+    if (tr <= l || r <= tl) return NEUT;
     if (l <= tl && tr <= r) return st[v];
     int tm = (tl + tr) / 2;
     return query(2 * v + 1, tl, tm, l, r) +

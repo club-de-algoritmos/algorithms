@@ -9,11 +9,13 @@
  * Tiempo: O(\log n)
  */
 
+#define NEUT 0
+
 struct STree {
   int n;
   vi lc, rc, val;
 
-  int newNode(int l = 0, int r = 0, int v = 0) {
+  int newNode(int l = 0, int r = 0, int v = NEUT) {
     lc.pb(l);
     rc.pb(r);
     val.pb(v);
@@ -23,7 +25,7 @@ struct STree {
   STree(int n) : n(n) { newNode(); }
 
   int query(int v, int tl, int tr, int l, int r) {
-    if (!v || tr <= l || r <= tl) return 0;
+    if (!v || tr <= l || r <= tl) return NEUT;
     if (l <= tl && tr <= r) return val[v];
     int tm = (tl + tr) / 2;
     return query(lc[v], tl, tm, l, r) +
