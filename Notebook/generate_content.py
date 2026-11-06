@@ -15,16 +15,19 @@ def guardar_lista_archivos_ordenada(carpeta_raiz, archivo_salida, orden_carpetas
 
     # Recorre la carpeta raíz y agrupa los archivos por su carpeta principal
     for directorio_raiz, subdirectorios, archivos in os.walk(carpeta_raiz):
-        archivos_cpp_py = [
+        archivos_validos = [
             archivo
             for archivo in archivos
-            if archivo.endswith(".cpp") or archivo.endswith(".py")
+            if archivo.endswith(".cpp")
+            or archivo.endswith(".py")
+            or archivo.endswith(".sh")
+            or archivo == "cpp"
         ]
-        if archivos_cpp_py:
+        if archivos_validos:
             carpeta_principal = os.path.relpath(directorio_raiz, carpeta_raiz).split(
                 os.sep
             )[0]
-            for archivo in archivos_cpp_py:
+            for archivo in archivos_validos:
                 ruta_relativa = os.path.relpath(
                     os.path.join(directorio_raiz, archivo), carpeta_raiz
                 )
@@ -42,7 +45,10 @@ def guardar_lista_archivos_ordenada(carpeta_raiz, archivo_salida, orden_carpetas
         for carpeta in orden_carpetas:
             if carpeta in archivos_por_carpeta:
                 salida.write(f"\n[{carpeta}]\n")
-                for ruta_relativa, nombre_formateado in archivos_por_carpeta[carpeta]:
+                items = archivos_por_carpeta[carpeta]
+                if carpeta == "templates":
+                    items.sort(key=lambda x: (0 if x[0].endswith("cpp") else 1, x[1]))
+                for ruta_relativa, nombre_formateado in items:
                     if nombre_formateado in ignorar:
                         continue
                     if nombre_formateado in correcciones:
@@ -71,6 +77,7 @@ orden_carpetas = [
 ignorar = ["template_tests"]
 
 correcciones = {
+    "cpp": "Template C++",
     "templatecpp": "Template C++",
     "templatemax": "Template Max",
     "templatepy": "Template Python",
